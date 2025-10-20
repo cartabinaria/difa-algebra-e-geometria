@@ -1,0 +1,290 @@
+\documentclass[draft]{article}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{parskip}
+\usepackage{array}
+\usepackage{booktabs}
+\newcommand{\bl}[1]{\mathbf{#1}}
+\newcommand{\vu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\vw}{\mathbf{w}}
+
+\begin{document}
+
+\title{Teoremi e proposizioni per il primo parziale di Algebra Lineare, nel corso di Fisica dell'università di Bologna}
+\author{Alessandro Cerati}
+\date{29 ottobre 2021}
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Legenda}
+\begin{tabular}{ll}
+Abbreviazione	& 	Significato \\
+\toprule
+SV				&	Spazio vettoriale \\
+SSV				& 	Sottospazio vettoriale \\
+CL				& 	Combinazione lineare \\
+LI				&	Linearmente indipendenti \\
+LD				& 	Linearmente dipendenti \\
+FG 				&	Finitamente generato \\
+AL				& 	Applicazione lineare \\
+\end{tabular}
+
+
+Le proposizioni in \textit{corsivo} sono vere, ma non sono state dimostrate in classe.
+\section{Prodotto scalare e vettoriale}
+
+\subsection{Prodotto scalare}
+
+\begin{enumerate}
+
+\item Proprietà del prodotto scalare:
+\begin{enumerate}
+\item \textbf{Commutatività}: $\vu + \vv = \vv + \vu$ 
+\item \textbf{Distributività}: $(\vu + \bl{u'}) \cdot \vv = \vu \cdot \vv + \bl{u'} \cdot \vv $ 
+\item $\vu \cdot \lambda \vv = \lambda (\vu \cdot \vv) $
+\end{enumerate}
+
+\item \textbf{Disuguaglianza triangolare}: $||\vu+\vv|| \leq ||\vu|| + ||\vv|| $
+ 
+\item $\vu \cdot \vv = 0 \Leftrightarrow \cos \theta = 0$
+
+\item \textbf{Coefficiente di Fourier} $c=\frac{\vu \cdot \vv}{||\vu||^2}$
+
+\item $\vu \cdot \vv = ||\vu|| \ ||\vv|| \cos \theta $
+\end{enumerate}
+
+\subsection{Prodotto vettoriale}
+\begin{enumerate}
+
+\item Proprietà del prodotto vettoriale:
+\begin{enumerate}
+\item \textbf{Distributività destra}: $(\vu + \bl{u'}) \times \vv = \vu \times \vv + \bl{u'} \times \vv $ 
+\item \textbf{Distributività sinistra}: $\vu \times (\vv + \bl{v'}) = \vu \times \vv + \vu \times \bl{v'} $
+\item \textbf{Anticommutatività}: $\vu \times \vv = - \vv \times \vu $
+\end{enumerate}
+
+\item $\vu \times \vv \perp \vu,\vv$
+
+\item $\vu \times \vv = 0 \Leftrightarrow \sin \theta = 0 \Leftrightarrow \vu=k \vv$
+
+\end{enumerate}
+
+\section{Numeri complessi}
+\begin{enumerate}
+
+\item Valgono in $\mathbb{C}$ tutte le proprietà di addizione e moltiplicazione in $\mathbb{R}$. In particolare, esistono sempre inverso additivo e moltiplicativo.
+
+\item $(a + bi)^{-1} = \frac{a}{a^2 + b^2}+\frac{-b}{a^2 + b^2}i$
+
+\item $\alpha \bar{\alpha} = (a+bi)(a-bi) = |\alpha |^2$
+
+\end{enumerate}
+
+\section{Spazi vettoriali}
+\subsection{Proprietà}
+\begin{enumerate}
+
+\item Per definizione, le operazioni in uno spazio vettoriale $V$ su un campo $\mathbb{K}$ hanno le seguenti proprietà $\forall \vu , \vv \in V , \ \lambda , \mu \in \mathbb{K}$:
+\begin{enumerate}
+\item \textbf{Commutatività della somma}: $\vu + \vv = \vv + \vu$ 
+\item \textbf{Associatività della somma}: $(\vu + \vv) + \bl{w} = \vv + (\vu + \bl{w})$ 
+\item Esiste un elemento neutro della somma, detto \textbf{vettore nullo} $\bl{0}_V$.
+\item Ogni elemento ha un \textbf{opposto} $\bl{-u}$.
+\item $1 \vu= \vu$
+\item \textbf{Associatività del prodotto}: $(\lambda \mu) \vu = \lambda (\mu \vu)$
+\item \textbf{Distributività del prodotto (rispetto agli scalari)}: \\ $\lambda (\vu + \vv)  = \lambda \vu + \lambda \vv $ 
+\item \textbf{Distributività del prodotto (rispetto ai vettori)}: \\ $(\lambda + \mu) \vu = \lambda \vu + \mu \vu $ 
+\end{enumerate}
+
+\item Inoltre, si dimostra che:
+\begin{enumerate}
+\item Il vettore nullo è unico.
+\item $\bl{-u}$ è unico $\forall \vu$.
+\item $\lambda \bl{0}_V = \bl{0}_V$
+\item $0 \vu = \bl{0}_V$
+\item $\lambda \vu = \bl{0}_V \Leftrightarrow \lambda = 0 \vee \vu = \bl{0}_V$
+\item $(- \lambda) \vu = \lambda (\bl{-u}) = - \lambda \vu$
+\end{enumerate}
+
+\item Uno spazio vettoriale non può essere vuoto, e se non è $V=\{\bl{0}_V\}$ allora contiene infiniti elementi.
+
+\end{enumerate}
+
+\subsection{Sottospazi vettoriali}
+\begin{enumerate}
+
+\item Se $W$ è un SSV di $V$, per definizione:
+\begin{enumerate}
+\item $\bl{0} \in W$ o, equivalentemente, $W \neq \emptyset$.
+\item $\vw _1 + \vw _2 \in W \ \forall \vw _1 , \vw _2 \in W$.
+\item $\lambda \vw  \in W \ \forall \vw \in W, \ \lambda \in \mathbb{K}$.
+\end{enumerate}
+
+\item Un SSV è un SV.
+
+\item Se $V$ è SV contenente $\vu$, allora $\{\bl{0}_V\}$, $V$ e $\{\lambda \vu | \lambda \in \mathbb{K}\}$ sono suoi SSV.
+
+\item \textit{Siano $W_1 , W_2$ SSV di uno SV $W$. Allora $W_1 \cap W_2$ è SSV di $V$, ma $W_1 \cup W_2$ è SSV di $V$ se e solo se $W_1 \subseteq W_2$ o $W_2 \subseteq W_1$.}
+\end{enumerate}
+
+\subsection{Combinazioni lineari e basi}
+\begin{enumerate}
+
+\item $v_1 ... v_n \in V \Rightarrow \ \langle \vv _1 ... \vv _n \rangle $ è SSV di $V$ ed è sottoinsieme di ogni SSV di $V$ che contiene almeno $\vv _1 ... \vv _n$.
+
+\item Sia $V$ SV su $\mathbb{K}$, $\vv _1 ... \vv _n \in V$. Allora $\langle \vv _1 ... \vv _n \rangle =\langle \vv _1 ... \vv _n , \vw \rangle  \Leftrightarrow \vw = \lambda _1 \vv _1 + ... + \lambda _n \vv _n$.
+
+\item Un insieme di vettori che contiene $\bl{0}$ è sempre LD.
+
+\item $\vv _1 .. \vv _n \ \mathrm{LI} \Leftrightarrow$ nessuno è CL degli altri. (Nota: questo vale solo se lo SV è definito su un campo, non per esempio su $\mathbb{N}$).
+
+\item Due vettori sono LI se e solo se non sono uno multiplo dell'altro.
+
+\item Un sottoinsieme non vuoto di un insieme di vettori LI è ancora LI.
+
+\item Se $V$ è uno SV, esiste una sua base.
+
+\item $\{ \vv _1 ... \vv _n \}$ è base di $V$ $\Leftrightarrow$ è un suo insieme minimale di generatori $\Leftrightarrow$ è un insieme massimale di vettori LI in esso. (Nota: ciò non implica che ogni base di $V$ abbia lo stesso numero di elementi; ciò è vero ma segue dal teorema del completamento.)
+
+\item \textbf{Teorema del completamento}: Sia $V$ uno SV FG su $\mathbb{K}$ e $\mathcal{B} = \{ \vv _1 ... \vv _n \}$ una sua base, allora sia $W= \{ \vw _1 ... \vw _m \} \subset V$ un insieme LI:
+\begin{enumerate}
+\item $m \leq n$
+\item Si può completare $W$ a base di $V$ aggiungendo $n-m$ vettori di $\mathcal{B}$.
+\end{enumerate}
+
+\item Tutte le basi di un SV FG hanno lo stesso numero di elementi.
+
+\item \textbf{Lemma di sostituzione:} Sia $\{ \vw _1 ... \vw _n \}$ una base di $V$ e sia $\vv = \lambda _1 \vw _1 + ... + \lambda _n \vw _n \mathrm{con} \lambda _1 \neq 0$. Allora $\{ \vv _1 , \vw _2 , ... , \vw _n \}$ è base di $V$. 
+
+\item \textit{Sia $V$ uno SV FG e sia $W$ SSV di $V$. Allora $\dim W \leq \dim V$, con $\dim W = \dim V \Leftrightarrow W=V$.}
+
+\item Siano $n$ vettori $\vv _1 ... \vv _n \in V$, e sia $n=\dim V$. Allora le seguenti tre affermazioni sono equivalenti:
+\begin{itemize}
+\item $\vv _1 ... \vv _n$ sono LI.
+\item $\vv _1 ... \vv _n$ generano $V$,
+\item $\vv _1 ... \vv _n$ formano una base di $V$.
+\end{itemize}
+
+\item Le righe non nulle di una matrice a scala sono vettori LI.
+
+\item Sia $V$ uno SV e $\mathcal{B} = \{ \vv _1 ... \vv _n \}$ una sua base, allora $\forall \vv \in V \ \vv = \lambda _1 \vv _1 + ... + \lambda _n \vv _n$ in modo unico e i $\lambda _i$ si dicono coordinate di $v$ rispetto a $\mathcal{B}$. (Ciò permette di usare l'algoritmo di Gauss per trovare le basi di SV che non sono SSV di $\mathbb{K}^n$).
+
+\item La dimensione del SV banale è 0 perché la sua unica "base" è $\emptyset$.
+\end{enumerate}
+
+\subsection{Somme, somme dirette, prodotti cartesiani}
+\begin{enumerate}
+
+\item Siano $U, W$ SSV di $V$ SV su $\mathbb{K}$. Si dice che $V$ è \textbf{somma} di $U$ e $W$ e si scrive $V= U + W$ se $V = \{ \vu + \vw \ | \ \vu \in U, \vw \in W \}$.
+
+\item Sia $V=U+W$. Allora si scrive $V=U \oplus W \Leftrightarrow U \cap W = \{ \bl{0} _V \}$.
+
+\item Sia $V=U+W$. Allora si dice che $V$ è \textbf{somma diretta} di U e W e si scrive $V=U \oplus W$ se $\vv = \vu + \vw $ in modo unico $\forall \ \vv \in V$.
+
+\item Sia $V$ SV su $\mathbb{K}$, $U$ SSV di $V$. Allora $\exists W$ SSV di $V \ | \ V=U \oplus W$ . (Nota: $W$ non è unico).
+
+\item \textbf{Formula di Grassmann:} $\dim (U+W) = \dim U + \dim W - \dim (U \cap W)$.
+
+\item Siano $U, W$ SV su $\mathbb{K}$, il loro prodotto cartesiano $U \times W = \{ (\vu, \vw) \ | \ \vu \in U,\ \vw \in W \}$ con operazioni definite componente per componente è uno SV.
+
+\item $\dim (U \times W)= \dim U + \dim W$.
+
+\item \textit{$U \times W \cong U \oplus W$. (Un isomorfismo è $F: (\vu ,\vw ) \mapsto \vu +\vw $).}
+
+\end{enumerate}
+
+\subsection{Applicazioni lineari}
+\begin{enumerate}
+
+\item Siano $V,W$ SV FG su $\mathbb{K}$ e $\mathcal{B} = \{ \vv _1 ... \vv _n \}$ una base di V. Siano $\vw _1 ... \vw _n \in W$, $\exists !$ AL $f: V \rightarrow W \ | \ f( \vv _i ) = \vw _i \ \forall i$.
+
+\item Siano $T,S: V \rightarrow W$. Se coincidono su una base di $V$, allora coincidono su tutto $V$.
+
+\item \textit{Sia $F:V \rightarrow W$ un'AL. Allora $F(\bl{0}_V ) = \bl{0}_W$.}
+
+\item C'è corrispondenza biunivoca fra le AL $f: \mathbb{K}^n \rightarrow \mathbb{K}^m$ e le matrici di $M_{m,n} (\mathbb{K})$.
+
+\item Sia $F: V \rightarrow W$ un'AL, $\ker F$ è SSV di $V$ \textit{(ed è l'unica preimmagine ad esserlo)} e  $\mathrm{Im} \ F$ è SSV di $W$.
+
+\item Sia $\{ \vv _1 ... \vv _n \}$ una base di V, allora $\mathrm{Im}F=\langle F( \vv _1 ) ... F( \vv _n )\rangle $.
+
+\item Sia $F: V \rightarrow W$ un'AL, allora:
+\begin{itemize}
+\item $F \ \mathrm{iniettiva} \Leftrightarrow \ker F = \{ \bl{0}_V \}$
+\item $F  \ \mathrm{suriettiva} \Leftrightarrow \dim \mathrm{Im}\ F = \dim W$
+\end{itemize}
+
+\item \textbf{Teorema della dimensione:} Sia $F: V \rightarrow W$ con $V,W$ FG un'AL, allora $\dim V = \dim \ker F + \dim \mathrm{Im}\ F$. 
+
+\item Sia $F: V \rightarrow W$, allora $\dim V > dim W \Rightarrow F$ non è iniettiva e $\dim V < dim W \Rightarrow F$ non è suriettiva.
+
+\item Sia $F: V \rightarrow W$ un'AL iniettiva, allora $\vv _1 ... \vv _n \ \mathrm{LI} \Rightarrow F( \vv _1 ) ... F( \vv _n ) \ \mathrm{LI} $.
+
+\item Sia $F: V \rightarrow W$ un isomorfismo (AL biiettiva), allora $F^{-1}$ è lineare (e dunque un isomorfismo).
+
+\item Sia $F:V \rightarrow W$ un'AL tale che l'insieme delle immagini dei vettori di una base di $V$ sia base di $W$. Allora $F$ è un isomorfismo.
+
+\item Siano $V, W$ SV di dimensione finita, $V \cong W \Leftrightarrow \dim V = \dim W$.
+\end{enumerate}
+
+\section{Matrici e sistemi lineari}
+\subsection{Matrici}
+\begin{enumerate}
+
+\item Per ogni matrice A, $\mathrm{rr} A= \mathrm{rc} A \equiv \mathrm{rk} A$.
+
+\item Sia $F$ l'AL associata alla matrice $m \times n$ $A$, $\dim \ker F = n - \mathrm{rk} A$.
+
+\item Sia $F$ l'AL associata alla matrice $A$ e sia $G$ l'AL associata alla matrice $B$, la funzione $F \circ G$ è l'AL associata alla matrice $AB$. In particolare, se $F$ è un'isomorfismo e $G$ è la sua applicazione inversa, allora $F \circ G = i_{V}$, associata alla matrice identità $I$. Dunque $B \equiv A^{-1}$.
+
+\item Il prodotto fra matrici, sotto opportune condizioni di definizione, è distributivo ed associativo. 
+\end{enumerate}
+
+\subsection{Sistemi lineari}
+\begin{enumerate}
+
+\item Ogni SL si può scrivere $A \bl{x}= \bl{b}$.La matrice completa del sistema è $(A|\bl{b})$. $\bl{b}$ è detto termine noto del sistema.  
+
+\item L'insieme delle soluzioni di un SL omogeneo $A \bl{x} =\bl{0}$ con $A \ m \times n$ è uno SV \textit{di dimensione $n-\mathrm{rk}A$}.
+
+\item Ogni SL omogeneo ammette almeno una soluzione, quella banale $\{0,0...0\}$.
+
+\item \textbf{Teorema di struttura:} Dato un SL $A \bl{x}= \bl{b}$, sia $\bl{x}_P$ una soluzione particolare del sistema, e sia $L_A$ l'AL associata ad $A$. Allora tutte le soluzioni del sistema sono della forma $\bl{x}_P + \bl{z}$, con $\bl{z} \in \ker L_A$, e tutti gli oggetti di questa forma sono soluzioni del sistema.
+
+\item Le seguenti manovre sulle righe $R_i$, dette \textbf{operazioni elementari}, non cambiano l'insieme delle soluzioni di un SL né lo span dei suoi vettori riga:
+\begin{enumerate}
+\item $R_i \mapsto \lambda R_i $
+\item $R_i \mapsto R_i + R_j $
+\item $R_i \leftrightarrow R_j $
+\item Eliminare $0=0$
+\end{enumerate}
+
+\item \textit{Se una matrice è a scala per righe, i suoi vettori riga non nulli sono LI.}
+
+\item \textbf{Teorema di Rouché-Capelli:} Dato un SL $A \bl{x}= \bl{b}$, esso ammette soluzioni se e solo se $\mathrm{rk}A=\mathrm{rk}(A|\bl{b})$. Queste soluzioni dipendono da $n-\mathrm{rk}A$ parametri, dove $n$ è il numero di colonne di $A$. In particolare, se $n= \mathrm{rk} A$ la soluzione è unica, altrimenti il sistema ammette infinite soluzioni.
+
+\end{enumerate}
+
+\section{Il Teoremone}
+Sia $F:\mathbb{K}^n \rightarrow \mathbb{K}^n$ un'AL. Allora le seguenti 10 affermazioni sono equivalenti:
+\begin{itemize}
+\item $F$ è un isomorfismo.
+\item $F$ è iniettiva.
+\item $F$ è suriettiva.
+\item $\mathrm{rk}A=n$.
+\item Le colonne di $A$ sono LI.
+\item Le righe di $A$ sono LI.
+\item $A \bl{x}= \bl{0}$ ha come unica soluzione $\bl{x}=\bl{0}$.
+\item $A \bl{x}= \bl{b}$ ha un'unica soluzione.
+\item $A$ è invertibile.
+\item $\det A \neq 0$.
+\end{itemize}
+\end{document}

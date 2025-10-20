@@ -1,0 +1,994 @@
+  \documentclass[]{article}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mdframed}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{parskip}
+\usepackage{array}
+\usepackage{booktabs}
+
+\newcommand{\bl}[1]{\mathbf{#1}}
+\newcommand{\vu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\vw}{\mathbf{w}}
+\newcommand{\vb}{\mathbf{b}}
+\newcommand{\scalprod}[2]{\left\langle #1 , #2 \right\rangle}
+
+\makeatletter
+\def\th@plain{%
+  \thm@notefont{}% same as heading font
+  \itshape % body font
+}
+\def\th@definition{%
+  \thm@notefont{}% same as heading font
+  \normalfont % body font
+}
+\makeatother
+
+\theoremstyle{definition}
+\newmdtheoremenv{thm}{Teo}
+
+\theoremstyle{definition}
+\newtheorem{prop}{Prop}[subsection]
+
+\theoremstyle{definition}
+\newtheorem{dfn}[prop]{Def}
+
+\renewcommand\qedsymbol{QED}
+
+\begin{document}
+
+\title{Teoremi, definizioni e proposizioni per l'esame di Algebra Lineare, nel corso di Fisica dell'università di Bologna}
+\author{Alessandro Cerati}
+\date{4 gennaio 2022}
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Legenda}
+\begin{tabular}{ll}
+Abbreviazione	& 	Significato \\
+\toprule
+SV				&	Spazio vettoriale \\
+SSV				& 	Sottospazio vettoriale \\
+CL				& 	Combinazione lineare \\
+LI				&	Linearmente indipendenti \\
+LD				& 	Linearmente dipendenti \\
+FG 				&	Finitamente generato \\
+AL				& 	Applicazione lineare \\
+SL				& 	Sistema lineare \\
+FB				& 	Forma bilineare \\
+PS				& 	Prodotto scalare \\
+DP				& 	Definito positivo \\
+AB				& 	Applicazione bilineare \\
+AM				&	Applicazione multilineare\\
+\end{tabular}
+
+\section{Prodotto scalare euclideo e prodotto vettoriale}
+
+\subsection{Prodotto scalare euclideo}
+
+\begin{dfn} Il prodotto scalare (euclideo) di due vettori $\vu, \vv \in \mathbb{R}^3$ è il numero $\vu \cdot \vv = u_1 v_1 + u_2 v_2 + u_3 v_3$.
+
+ \end{dfn} \begin{prop} Proprietà del prodotto scalare euclideo:
+\begin{enumerate}
+	\item \emph{Commutatività}: $\vu + \vv = \vv + \vu$ 
+	\item \emph{Distributività}: $(\vu + \bl{u'}) \cdot \vv = \vu \cdot \vv + \bl{u'} \cdot \vv $ 
+	\item $\vu \cdot \lambda \vv = \lambda (\vu \cdot \vv) $
+\end{enumerate}
+
+\end{prop} \begin{prop} \emph{Disuguaglianza triangolare}: $||\vu+\vv|| \leq ||\vu|| + ||\vv|| $
+ 
+\end{prop} \begin{prop} $\vu \cdot \vv = 0 \Leftrightarrow \cos \theta = 0$
+
+\end{prop} \begin{prop} \emph{Coefficiente di Fourier} $c=\frac{\vu \cdot \vv}{||\vu||^2}$
+
+\end{prop} \begin{prop} $\vu \cdot \vv = ||\vu|| \ ||\vv|| \cos \theta $
+\end{prop} 
+
+\subsection{Prodotto vettoriale}
+
+ \begin{dfn} Il prodotto vettoriale di due vettori $\vu, \vv \in \mathbb{R}^3$ è il vettore $\vu \times \vv = (u_2 v_3 - u_3 v_2, u_3 v_1 - u_1 v_3, u_1 v_2 - u_2 v_1)$.
+
+ \end{dfn} \begin{prop} Proprietà del prodotto vettoriale:
+\begin{enumerate}
+\item \emph{Distributività destra}: $(\vu + \bl{u'}) \times \vv = \vu \times \vv + \bl{u'} \times \vv $ 
+\item \emph{Distributività sinistra}: $\vu \times (\vv + \bl{v'}) = \vu \times \vv + \vu \times \bl{v'} $
+\item \emph{Anticommutatività}: $\vu \times \vv = - \vv \times \vu $
+\end{enumerate}
+
+\end{prop} \begin{prop} $\vu \times \vv \perp \vu,\vv$
+
+\end{prop} \begin{prop} $\vu \times \vv = 0 \Leftrightarrow \sin \theta = 0 \Leftrightarrow \vu=k \vv$
+\end{prop}
+
+\section{Numeri complessi}
+
+\begin{prop} Valgono in $\mathbb{C}$ tutte le proprietà di addizione e moltiplicazione in $\mathbb{R}$. In particolare, esistono sempre inverso additivo e moltiplicativo.
+
+\end{prop} \begin{prop} $(a + bi)^{-1} = \frac{a}{a^2 + b^2}+\frac{-b}{a^2 + b^2}i$
+
+\end{prop} \begin{prop} $\alpha \bar{\alpha} = (a+bi)(a-bi) = |\alpha |^2$
+\end{prop}
+
+\section{Spazi vettoriali}
+\subsection{Proprietà} 
+
+ \begin{dfn} Sia $\mathbb{K}$ un campo. Un insieme $V$ munito di due operazioni $+:V \times V \to V$ e $\cdot : \mathbb{K} \times V \to V$ si dice \emph{spazio vettoriale} su $\mathbb{K}$ se valgono le seguenti proprietà $\forall \vu , \vv \in V , \ \lambda , \mu \in \mathbb{K}$:
+\begin{enumerate}
+	\item \emph{Commutatività della somma}: $\vu + \vv = \vv + \vu$ 
+	\item \emph{Associatività della somma}: $(\vu + \vv) + \bl{w} = \vv + (\vu + \bl{w})$ 
+	\item Esiste un elemento neutro della somma, detto \emph{vettore nullo} $\bl{0}_V$.
+	\item Ogni elemento ha un \emph{opposto} $\bl{-u}$.
+	\item $1 \vu= \vu$
+	\item \emph{Associatività del prodotto}: $(\lambda \mu) \vu = \lambda (\mu \vu)$
+	\item \emph{Distributività del prodotto (rispetto agli scalari)}: \\ $\lambda (\vu + \vv)  = \lambda \vu + \lambda \vv $ 
+	\item \emph{Distributività del prodotto (rispetto ai vettori)}: \\ $(\lambda + \mu) \vu = \lambda \vu + \mu \vu $ 
+\end{enumerate}
+Gli elementi di $V$ si dicono \emph{vettori} e gli elementi di $\mathbb{K}$ si dicono \emph{scalari}.
+
+ \end{dfn} \begin{prop} Inoltre, si dimostra che:
+\begin{enumerate}
+	\item Il vettore nullo è unico.
+	\item $\bl{-u}$ è unico $\forall \vu$.
+	\item $\lambda \bl{0}_V = \bl{0}_V$
+	\item $0 \vu = \bl{0}_V$
+	\item$\lambda \vu = \bl{0}_V \Leftrightarrow \lambda = 0 \vee \vu = \bl{0}_V$
+	\item $(- \lambda) \vu = \lambda (\bl{-u}) = - \lambda \vu$
+\end{enumerate}
+
+\end{prop} \begin{prop} Uno spazio vettoriale non può essere vuoto, e se non è lo \emph{spazio vettoriale banale} $V=\{\bl{0}_V\}$ allora contiene infiniti elementi.
+\end{prop}
+
+\subsection{Sottospazi vettoriali}
+
+ \begin{dfn} Sia $V$ uno SV e $W \subset V$. Si dice che $W$ è \emph{sottospazio vettoriale} di $V$ se
+\begin{enumerate}
+	\item $\bl{0} \in W$ o, equivalentemente, $W \neq \emptyset$.
+	\item \emph{Chiusura rispetto alla somma:} $\vw _1 + \vw _2 \in W \ \forall \vw _1 , \vw _2 \in W$.
+	\item \emph{Chiusura rispetto al prodotto:} $\lambda \vw  \in W \ \forall \vw \in W, \ \lambda \in \mathbb{K}$.
+\end{enumerate}
+
+ \end{dfn} \begin{prop} Un SSV è uno SV.
+
+\end{prop} \begin{prop} Se $V$ è SV contenente $\vu$, allora $\{\bl{0}_V\}$, $V$ e $\{\lambda \vu \ |\ \lambda \in \mathbb{K}\}$ sono suoi SSV.
+
+\end{prop} \begin{prop} Siano $W_1 , W_2$ SSV di uno SV $W$. Allora $W_1 \cap W_2$ è SSV di $V$, ma $W_1 \cup W_2$ è SSV di $V$ se e solo se $W_1 \subseteq W_2$ o $W_2 \subseteq W_1$.
+\end{prop}
+
+\subsection{Combinazioni lineari e basi} 
+
+ \begin{dfn} Sia $V$ uno SV su un campo $\mathbb{K}$ e siano $v_1 ,..., v_n \in V, \ \lambda_1 ,..., \lambda _n \in \mathbb{K}$. Il vettore $\vw= \lambda _1 \vv _1 + ... + \lambda _n \vv _n$ si dice \emph{combinazione lineare} di $\vv _1 ,..., \vv _n$ con $\lambda_1 ,..., \lambda _n$.
+
+ \end{dfn}  \begin{dfn} Sia $V$ uno SV su un campo $\mathbb{K}$ e siano $v_1 ,..., v_n \in V$. L'insieme delle combinazioni lineari di $\vv _1 ,..., \vv _n$ è detto \emph{span} di $v_1 ,..., v_n$ e si indica con $\langle \vv _1 ,..., \vv _n \rangle$ o con $\mathrm{span} \{ \vv _1 ,..., \vv _n \}$. Sia $W=\langle \vv _1 ,..., \vv _n \rangle$, si dice che $\vv _1 ,..., \vv _n$ \emph{generano} $W$.
+
+ \end{dfn} \begin{prop} $\vv_1 ,..., \vv_n \in V \Rightarrow \ \langle \vv _1 ,..., \vv _n \rangle $ è SSV di $V$ ed è sottoinsieme di ogni SSV di $V$ che contiene almeno $\vv _1 ,..., \vv _n$.
+
+\end{prop} \begin{prop} Sia $V$ SV su $\mathbb{K}$, $\vv _1 ,..., \vv _n \in V$. Allora $\langle \vv _1 ,..., \vv _n \rangle =\langle \vv _1 ,..., \vv _n , \vw \rangle$ $\Leftrightarrow \vw = \lambda _1 \vv _1 + ... + \lambda _n \vv _n$.
+
+\end{prop}  \begin{dfn} Sia $V$ uno SV su un campo $\mathbb{K}$. $v_1 ,..., v_n \in V$ si dicono \emph{linearmente indipendenti} se, siano $\lambda_1 ,..., \lambda _n \in \mathbb{K}$, si ha che
+$$\lambda _1 \vv _1 + ... + \lambda _n \vv _n = \bl{0} \Rightarrow \lambda_1 =...= \lambda_n = 0. $$
+Altrimenti, i vettori si dicono \emph{linearmentte dipendenti}.
+
+ \end{dfn} \begin{prop} Un insieme di vettori che contiene $\bl{0}$ è sempre LD.
+
+\end{prop} \begin{prop} $\vv _1 .. \vv _n \ \mathrm{LI} \Leftrightarrow$ nessuno è CL degli altri. (Nota: questo vale solo se lo SV è definito su un campo, non per esempio su $\mathbb{N}$).
+
+\end{prop} \begin{prop} Due vettori sono LI $\Leftrightarrow$ non sono uno multiplo dell'altro.
+
+\end{prop} \begin{prop} Un sottoinsieme non vuoto di un insieme di vettori LI è ancora LI.
+
+\end{prop}  \begin{dfn} Sia $V$ SV su $\mathbb{K}$, $\vv _1 ,..., \vv _n \in V$. $\mathcal{B}=\{ \vv_1 ,..., \vv_n \}$ si dice \emph{base} di $V$ se $\vv_1 ,..., \vv_n$ sono LI e generano $V$.
+
+ \end{dfn} \begin{prop} Se $V$ è uno SV non banale, esiste una sua base.
+
+\end{prop} \begin{prop} $\{ \vv _1 ,..., \vv _n \}$ è base di $V$ $\Leftrightarrow$ è un suo insieme minimale di generatori $\Leftrightarrow$ è un insieme massimale di vettori LI in esso. (Nota: ciò non implica che ogni base di $V$ abbia lo stesso numero di elementi; ciò è vero ma segue dal teorema del completamento.)
+
+\end{prop} \begin{thm}[Teorema del completamento] Sia $V$ uno SV FG su $\mathbb{K}$ e $\mathcal{B} = \{ \vv _1 ,..., \vv _n \}$ una sua base, allora sia $W= \{ \vw _1 ,..., \vw _m \} \subset V$ un insieme LI:
+\begin{enumerate}
+\item $m \leq n$
+\item Si può completare $W$ a base di $V$ aggiungendo $n-m$ vettori di $\mathcal{B}$.
+\end{enumerate}
+\end{thm} 
+\begin{proof}
+Dato che $\mathcal{B} $ genera $V $, si ha $ \vw_1=\alpha_1 \vv_1 +...+ \alpha_n \vv_n.$ A meno di un riordino, $\alpha_1 \neq 0,$ quindi per il Lemma di sostituzione $\{ \vw _1 ,..., \vv _n \}$ è base di $V.$ È possibile ripetere il ragionamento considerando $\vv_2$ e la base $\{ \vw _1 , \vv_2, ..., \vv _n \}$ e così via, dato che ad ogni passo si può supporre che almeno uno dei coefficienti dei $\vv_i$ non sia nullo poiché i $\vw_j$ sono tutti LI. Se $m > n$ dopo $n$ iterazioni si ottiene che $\{\vw_1,...,\vw_n\}$ è base di $V$, dunque $\vw_{n+1} \in \langle \vw_1,...,\vw_n \rangle$ e quindi $W$ non è LI, il che è assurdo. Quindi deve essere $m \leq n$, nel qual caso dopo $n-m$ iterazioni si ottiene che $\{\vw_1,...,\vw_m,\vv_{m+1},...,\vv_n\}$ è base di $V.$
+\end{proof}
+
+\begin{prop} Tutte le basi di uno SV FG hanno lo stesso numero di elementi.
+
+\end{prop} \begin{prop} Il numero di elementi delle basi di uno SV $V$ è chiamato \emph{dimensione} di $V$ e si indica con $\dim V$.
+
+\end{prop} 
+\begin{prop}[Lemma di sostituzione] Sia $\mathcal{B} = \{ \vw _1 ,..., \vw _n \}$ una base di $V$ e sia $\vv_1= \lambda _1 \vw _1 + ... + \lambda _n \vw _n\ \mathrm{con}\ \lambda _1 \neq 0$. Allora $\{ \vv _1 , \vw _2 , ... , \vw _n \}$ è base di $V$. 
+\end{prop}
+\begin{proof}
+Si ha che $\vw _2 , ... , \vw _n \in \langle \vv _1 , \vw _2 , ... , \vw _n \rangle$. Inoltre, dato che $\lambda_1 \neq 0$,
+$$\vw_1=-\frac{1}{\lambda_1} \vv_1 -\frac{\lambda_2}{\lambda_1} \vw_2-...-\frac{\lambda_n}{\lambda_1} \vw_n \in \langle \vv _1 , \vw _2 , ... , \vw _n \rangle.$$
+Dunque $\vw _1 , \vw _2 , ... , \vw _n \in \langle \vv _1 , \vw _2 , ... , \vw _n \rangle$. Dato che lo span di un insieme di vettori è SSV di ogni SV che li contiene e $\mathcal{B}$ è base di $V,$ $V=\langle \vw _1 , \vw _2 , ... , \vw _n \rangle \subseteq \langle \vv _1 , \vw _2 , ... , \vw _n \rangle$. Per lo stesso motivo $\langle \vv _1 , \vw _2 ,...,\vw _n \rangle \subseteq V.$ Quindi $\vv _1 , \vw _2 , ... , \vw _n$ generano $V.$
+
+Inoltre, siano $\beta_1,...,\beta_n \in \mathbb{K}$ tali che $\beta_1 \vv_1 +...+ \beta_n \vw_n = \bl{0}.$ Sostituendo $\vv$ e riordinando si ottiene che 
+$$\beta_1 \vw_1+...+(\beta_n + \beta_1 \lambda_n)\vw_n = \bl{0}.$$
+Dato che i $\vw_i$ sono base di $\mathcal{B},$ deve essere $\beta_1=(\beta_i + \beta_1 \lambda_i)=0$ quindi $\beta_i=0\ 	\forall i.$ Dunque $\vv _1 , \vw _2 , ... , \vw _n$ sono anche LI.
+\end{proof}
+\begin{prop} Sia $V$ uno SV FG e sia $W$ SSV di $V$. Allora $\dim W \leq \dim V$, con $\dim W = \dim V \Leftrightarrow W=V$.
+
+\end{prop} \begin{prop} Siano $n$ vettori $\vv _1 ,..., \vv _n \in V$, e sia $n=\dim V$. Allora le seguenti tre affermazioni sono equivalenti:
+\begin{itemize}
+\item $\vv _1 ,..., \vv _n$ sono LI.
+\item $\vv _1 ,..., \vv _n$ generano $V$,
+\item $\vv _1 ,..., \vv _n$ formano una base di $V$.
+\end{itemize}
+
+\end{prop} \begin{prop} Le righe non nulle di una matrice a scala sono vettori LI.
+
+\end{prop} \begin{prop} Sia $V$ uno SV e $\mathcal{B} = \{ \vv _1 ,..., \vv _n \}$ una sua base, allora $\forall \vv \in V \ \vv = \lambda _1 \vv _1 + ... + \lambda _n \vv _n$ in modo unico e i $\lambda _i$ si dicono \emph{coordinate} di $v$ rispetto a $\mathcal{B}$. (Ciò permette di identificare ogni SV con $\mathbb{K}^n$ \emph{una volta fissata una base}).
+
+\end{prop} \begin{prop} La dimensione dello SV banale è 0 perché la sua unica "base" è $\emptyset$.
+\end{prop}
+
+\subsection{Somme, somme dirette, prodotti cartesiani}
+
+\begin{dfn} Siano $U, W$ SSV di $V$ SV su $\mathbb{K}$. Si dice che $V$ è \emph{somma} di $U$ e $W$ e si scrive $V= U + W$ se $V = \{ \vu + \vw \ | \ \vu \in U, \vw \in W \}$.
+
+\end{dfn} \begin{dfn} Sia $V=U+W$. Allora si dice che $V$ è \emph{somma diretta} di U e W e si scrive $V=U \oplus W$ se $\vv = \vu + \vw $ in modo unico $\forall \ \vv \in V$.
+
+\end{dfn} \begin{prop} Sia $V=U+W$. Allora $V=U \oplus W \Leftrightarrow U \cap W = \{ \bl{0} _V \}$.
+
+\end{prop} \begin{prop} Sia $V$ SV su $\mathbb{K}$, $U$ SSV di $V$. Allora $\exists W$ SSV di $V \ | \ V=U \oplus W$ . (Nota: $W$ non è unico).
+
+\end{prop} \begin{prop}[Formula di Grassmann]$\dim (U+W) = \dim U + \dim W - \dim (U \cap W)$.
+
+\end{prop} \begin{prop} Siano $U, W$ SV su $\mathbb{K}$, il loro prodotto cartesiano $U \times W = \{ (\vu, \vw) \ |$ $\vu \in U,\ \vw \in W \}$ con operazioni definite componente per componente è uno SV.
+
+\end{prop} \begin{prop} $\dim (U \times W)= \dim U + \dim W$.
+
+\end{prop} \begin{prop} \textit{$U \times W \cong U \oplus W$. (Un isomorfismo è $F: (\vu ,\vw ) \mapsto \vu +\vw $).}
+\end{prop}
+
+\subsection{Applicazioni lineari}
+
+\begin{dfn} Siano $V,W$ due SV su $\mathbb{K}$. La funzione $F:V \to W$ si dice \emph{applicazione lineare} se
+\begin{enumerate}
+	\item $F(\vu+\vv)=F(\vu)+F(\vv) \ \forall \vu,\vv \in V$
+	\item $F(\lambda \vu)= \lambda F(\vu) \ \forall \vu \in V, \lambda \in \mathbb{K}$.
+\end{enumerate}
+
+\end{dfn} \begin{prop} Siano $V,W$ SV FG su $\mathbb{K}$ e $\mathcal{B} = \{ \vv _1 ,..., \vv _n \}$ una base di V. Siano $\vw _1 ,..., \vw _n $ $\in W$, $\exists !$ AL $f: V \to W \ | \ f( \vv _i ) = \vw _i \ \forall i$.
+
+\end{prop} \begin{prop} Siano $V,W$ SV su $\mathbb{K}$ e $T,S: V \to W$ AL. Se coincidono su una base di $V$, allora coincidono su tutto $V$.
+
+\end{prop} \begin{prop} Siano $V,W$ SV su $\mathbb{K}$ e $F:V \to W$ un'AL. Allora $F(\bl{0}_V ) = \bl{0}_W$.
+
+\end{prop} \begin{prop} Siano $V,W$ SV FG su $\mathbb{K}$ con $\dim V=n$ e $\dim W=m$. Fissata una base in $V$ ed una in $W$, c'è corrispondenza biunivoca fra le AL $f: V \to W$ e le matrici di $M_{m,n} (\mathbb{K})$.
+
+\end{prop} \begin{prop} Siano $V,W$ SV su $\mathbb{K}$ con una base fissata in ciascuno di essi e $L_A,L_B: V \to W$ AL associate rispettivamente alle matrici $A$ e $B$. Allora $L_A \circ L_B$ e $L_B \circ L_A$ sono AL associate rispettivamente alle matrici $AB$ e $BA$.
+
+\end{prop} \begin{dfn} Siano $V,W$ SV su $\mathbb{K}$ e sia $L:V \to W$ un'AL. Si dice \emph{immagine} di $L$ l'insieme
+$$\mathrm{Im}\ L = \{ \vw \in W \ | \ \vw = L(\vv) \ \mathrm{per\ qualche}\ \vv \in V \}.$$
+Si dice \emph{preimmagine} di $\vw \in W$ l'insieme
+$$L^{-1}(\vw) = \{ \vv \in V \ | \ \vw = L(\vv) \}.$$
+Si dice \emph{nucleo} di $L$ l'insieme
+$$\ker L = \{ \vv \in V \ | \ \bl{0}_W = L(\vv) \}.$$
+
+\end{dfn} \begin{prop} Siano $V,W$ SV su $\mathbb{K}$ e sia $L:V \to W$ un'AL, $\ker F$ è SSV di $V$ (ed è l'unica preimmagine ad esserlo) e  $\mathrm{Im} \ F$ è SSV di $W$.
+
+\end{prop} \begin{prop} Sia $\{ \vv _1 ,..., \vv _n \}$ una base di V, allora $\mathrm{Im}F=\langle F( \vv _1 ) ,..., F( \vv _n )\rangle $.
+
+\end{prop} \begin{prop} Sia $F: V \to W$ un'AL, allora:
+\begin{itemize}
+	\item $F \ \mathrm{iniettiva} \Leftrightarrow \ker F = \{ \bl{0}_V \}$
+	\item $F  \ \mathrm{suriettiva} \Leftrightarrow \dim \mathrm{Im}\ F = \dim W$
+\end{itemize}
+
+\end{prop} 
+\begin{thm}[Teorema della dimensione] Sia $F: V \to W$ con $V,W$ SV FG un'AL, allora 
+$$\dim V = \dim \ker F + \dim \mathrm{Im}\ F.$$
+\end{thm} 
+\begin{proof}
+Sia $\{ \vu_1,...,\vu_r\}$ una base di $\ker L.$ Per il Teorema del completamento si può completare ad una base $\mathcal{B}=\{ \vu_1,...,\vu_r, \vw_{r+1} ...,\vw_n\}$ di $V.$ Sia $\mathcal{B}_1=\{F(\vw_{r+1},...,F(\vw_n)\}$. Si ha che
+\begin{align*}
+\mathrm{Im}\ F &= \langle F(\vu_1),...,F(\vu_r), F(\vw_{r+1}),...,F(\vw_n) \rangle=\langle \bl{0},...,\bl{0},F(\vw_{r+1}),...,F(\vw_n) \rangle \\ &= \langle F(\vw_{r+1}), ...,F(\vw_n) \rangle.
+\end{align*}
+
+Ora, siano $\alpha_1,...,\alpha_n \in \mathbb{K}$ tali che $\alpha_{r+1} F(\vw_{r+1}) +...+ \alpha_n F(\vw_n) = \bl{0}.$ Per la linearità di $F$, si ha che $F(\vw):=F(\alpha_{r+1} \vw_{r+1} +...+\alpha_n \vw_n) = \bl{0},$ e dunque $\vw \in \ker F,$ quindi $\vw=\alpha_1 \vu_1 +...+ \alpha_r \vu_r.$ Dunque $\alpha_{r+1} \vw_{r+1} +...+\alpha_n \vw_n=\alpha_1 \vu_1 +...+ \alpha_r \vu_r,$ il che implica che
+$$\alpha_1 \vu_1 +...+ \alpha_r \vu_r-(\alpha_{r+1} \vw_{r+1} +...+\alpha_n \vw_n)=\bl{0}.$$
+Ma $\mathcal{B}$ è una base di $V$, quindi è un insieme LI e $\alpha_1=...=\alpha_n=0.$ Dunque $\mathcal{B}_1$ è anche un insieme LI.
+\end{proof}
+
+\begin{prop} Sia $F: V \to W$, allora $\dim V > \dim W \Rightarrow F$ non è iniettiva, e $\dim V < \dim W \Rightarrow F$ non è suriettiva.
+
+\end{prop} \begin{prop} Sia $F: V \to W$ un'AL iniettiva, allora $\vv _1 ,..., \vv _n \ \mathrm{LI} \Rightarrow F( \vv _1 ) ,...,$ $F( \vv _n)$ LI.
+
+\end{prop} \begin{prop} Sia $F: V \to W$ un isomorfismo (AL biiettiva), allora $F^{-1}$ è lineare (e dunque un isomorfismo).
+
+\end{prop} \begin{prop} Sia $F:V \to W$ un'AL tale che l'insieme delle immagini dei vettori di una base di $V$ sia base di $W$. Allora $F$ è un isomorfismo.
+
+\end{prop} \begin{prop} Siano $V, W$ SV di dimensione finita, $V \cong W \Leftrightarrow \dim V = \dim W$.
+\end{prop}
+
+\section{Matrici e sistemi lineari}
+\subsection{Matrici}
+
+\begin{prop} Sia $A \in M_{m,n}(\mathbb{K})$, il \emph{rango colonne} $\mathrm{rc}\ A$di $A$ è il numero di righe LI di $A$. Analogamente si definisce il \emph{rango righe} di $A$.
+
+\end{prop} \begin{prop} Per ogni matrice A, $\mathrm{rr}\ A= \mathrm{rc}\ A := \mathrm{rk}\ A$.
+
+\end{prop} \begin{prop} Sia $F$ l'AL associata alla matrice $m \times n$ $A$, $\dim \ker F = n - \mathrm{rk} A$.
+
+\end{prop} \begin{prop} Sia $F$ l'AL associata alla matrice $A$ e sia $G$ l'AL associata alla matrice $B$, la funzione $F \circ G$ è l'AL associata alla matrice $AB$. In particolare, se $F$ è un'isomorfismo e $G$ è la sua applicazione inversa, allora $F \circ G = i_{V}$, associata alla matrice identità $I$. Dunque $B \equiv A^{-1}$.
+
+\end{prop} \begin{prop} Il prodotto fra matrici, sotto opportune condizioni di definizione, è distributivo ed associativo. 
+\end{prop}
+
+\subsection{Sistemi lineari} 
+
+\begin{dfn} Ogni SL si può scrivere $A \bl{x}= \bl{b}$. La \emph{matrice completa} del sistema è $(A|\bl{b})$. $\bl{b}$ è detto \emph{termine noto} del sistema.  
+
+\end{dfn} \begin{prop} Sia $A \in M_{m,n}(\mathbb{K})$, l'insieme delle soluzioni di un SL omogeneo $A \bl{x} =\bl{0}$ è uno SV di dimensione $n-\mathrm{rk}\ A$.
+
+\end{prop} \begin{prop} Ogni SL omogeneo ammette almeno la soluzione banale $\{(0,...,0)\}$.
+
+\end{prop} 
+
+\begin{thm}
+[Teorema di struttura] Dato un SL $A \bl{x}= \bl{b}$, sia $\bl{x}_P$ una soluzione particolare del sistema, e sia $L_A$ l'AL associata ad $A$ (nella base canonica). Allora tutte le soluzioni del sistema sono della forma $\bl{x}_P + \bl{z}$, con $\bl{z} \in \ker L_A$, e tutti gli oggetti di questa forma sono soluzioni del sistema.
+\end{thm}
+\begin{proof}
+L'insieme delle soluzioni del sistema coincide con $L_A^{-1}(\vb).$ Per ipotesi $\bl{x}_P$ è soluzione del sistema, dunque $\bl{x}_P \in L_A^{-1}(\vb).$ Consideriamo una generica soluzione $\bl{x} \in L_A^{-1}(\vb).$ Allora $L_A(\bl{x})=\vb=(\bl{x}_P)$ e dunque, per linearità di $L_A,$ si ha che $L_A(\bl{x}-\bl{x}_P)=\bl{0},$ quindi $\bl{x}-\bl{x}_P=\bl{z} \in \ker L_A.$ Riorganizzando i membri, si ottiene $\bl{x}=\bl{x}_P + \bl{z}$.
+
+D'altra parte, se $\bl{z} \in \ker L_A,$ si ha che $L_A(\bl{x}_P+\bl{z})=L_A(\bl{x}_P)+L_A(\bl{z})=\vb+\bl{0}=\vb.$ e dunque $\bl{x}=\bl{x}_P+\bl{z}$ è soluzione del sistema.
+\end{proof}
+
+\begin{prop} Le seguenti manovre sulle righe $R_i$, dette \emph{operazioni elementari}, non cambiano l'insieme delle soluzioni di un SL né lo span dei suoi vettori riga:
+\begin{itemize}
+	\item $R_i \mapsto \lambda R_i $
+	\item  $R_i \mapsto R_i + R_j $
+	\item  $R_i \leftrightarrow R_j $
+	\item  Eliminare una riga nulla.
+\end{itemize}
+
+\end{prop} \begin{prop} Se una matrice è a scala per righe, i suoi vettori riga non nulli sono LI.
+
+\end{prop} 
+\begin{thm} 
+[Teorema di Rouché-Capelli] Dato un SL $A \bl{x}= \bl{b}$, esso ammette soluzioni se e solo se $\mathrm{rk}A=\mathrm{rk}(A|\bl{b})$. Queste soluzioni dipendono da $n-\mathrm{rk}A$ parametri, dove $n$ è il numero di colonne di $A$. In particolare, se $n= \mathrm{rk} A$ la soluzione è unica, altrimenti il sistema ammette infinite soluzioni.
+\end{thm}
+\begin{proof}
+Si consideri l'AL $L_A:\mathbb{R}^n \to \mathbb{R}^m$ associata ad $A$ nelle basi canoniche. L'insieme delle soluzioni del sistema coincide con $L_A^{-1}(\vb),$ che per definizione è non vuoto se e solo se $\vb \in \mathrm{Im}\ L_A.$ Ciò equivale a dire che il sistema ha soluzione se e solo se $\vb \in \langle \mathrm{colonne\ di\ } A \rangle$, ma questo è vero se e solo se $\langle \mathrm{colonne\ di\ } A \rangle= \langle \mathrm{colonne\ di\ } A|\vb \rangle$, ossia se e solo se $\mathrm{rk}\ A = \mathrm{rk}\ A|\vb.$
+
+Se il sistema ammette soluzioni, allora per il Teorema di struttura queste sono della forma $\bl{x}=\bl{x}_P + \bl{z},$ dove $\bl{x}_P$ è una soluzione particolare del sistema e $\bl{z} \in \ker L_A.$ Allora si possono verificare due casi:
+\begin{enumerate}
+\item $\dim \ker L_A=0$, cioè $\ker L_A = \bl{0},$ quindi l'unica soluzione del sistema è $\bl{x}_P+\bl{0}=\bl{x}_P$.
+\item $\dim \ker L_A>0$ e quindi $\ker L_A$ contiene infiniti elementi, essendo SV non banale. Per il teorema della dimensione, si ha $\dim \ker L_A=n- \dim \mathrm{Im}\ L_A = n- \mathrm{rk}\ A.$ Le soluzioni dipendono quindi da $n- \mathrm{rk}\ A$ parametri.
+\end{enumerate}
+\end{proof}
+
+\section{Il Teoremone}
+Sia $F:\mathbb{K}^n \to \mathbb{K}^n$ un'AL con matrice associata $A$ in una coppia di basi fissata. Allora le seguenti 10 affermazioni sono equivalenti:
+\begin{itemize}
+\item $F$ è un isomorfismo.
+\item $F$ è iniettiva.
+\item $F$ è suriettiva.
+\item $\mathrm{rk}A=n$.
+\item Le colonne di $A$ sono LI.
+\item Le righe di $A$ sono LI.
+\item $A \bl{x}= \bl{0}$ ha come unica soluzione $\bl{x}=\bl{0}$.
+\item $A \bl{x}= \bl{b}$ ha un'unica soluzione.
+\item $A$ è invertibile.
+\item $\det A \neq 0$.
+\end{itemize}
+
+
+\section{Determinante e matrice inversa}
+\subsection{Determinante} 
+
+\begin{prop}[Assiomi per colonne] Esiste ed è unica una funzione $\det : M_n (\mathbb{K})$ $\to \mathbb{K}$ per cui valgono le seguenti proprietà:
+\begin{enumerate}
+\item $\det(\mathbf{c}_1, ... ,\vv +\vw, ... ,\mathbf{c}_n) = \det(\mathbf{c}_1, ... ,\vv , ... ,\mathbf{c}_n)\ +\ \det(\mathbf{c}_1, ... ,\vw, ... ,\mathbf{c}_n)$
+\item $\det(\mathbf{c}_1, ... ,\lambda \mathbf{c}_i, ... ,\mathbf{c}_n) = \lambda \det(\mathbf{c}_1, ... , \mathbf{c}_i, ... ,\mathbf{c}_n)$ 
+\item $\det(\mathbf{c}_1, ... , \vv, ..., \vv,..., \mathbf{c}_n) = 0$
+\item  $\det I_n = 1$
+\end{enumerate}
+
+Lo stesso è vero se si scrivono le matrici in termini di vettori riga invece che di vettori colonna.
+
+\end{prop} \begin{dfn} Sia $S = \{ 1,2,...,n\}$, si definisce \emph{permutazione} una funzione biunivoca $\sigma: S \to S$ e si denota con
+$$
+	\begin{pmatrix}
+	1 			& 2 			& ... 	& n			 \\
+	\sigma (1) 	& \sigma (2) 	& ... 	& \sigma (n)
+	\end{pmatrix} 
+$$
+
+\end{dfn} \begin{dfn} Si definisce \emph{trasposizione} una permutazione
+$$
+	\begin{pmatrix}
+	1 	& ... 	& i	& j	& ... 	& n	 \\
+	1 	& ... 	& j	& i	& ... 	& n
+	\end{pmatrix} 
+$$
+
+\end{dfn} \begin{dfn} Si definisce \emph{ciclo} una permutazione denotata  $(i_1,...,i_s)$ (dove $\{i_1,...,$ $i_s\} \subset \{1,...,n\}$), che manda $i_j$ in $i_{j+1}$ $\forall 1 \leq j < s$, $i_s$ in $i_1$ ed ogni altro intero in se stesso. Più cicli si dicono \emph{disgiunti} se ogni elemento viene fissato da tutti tranne al massimo uno di essi.
+
+\end{dfn} \begin{prop} Ogni permutazione è la composizione di trasposizioni.
+
+\end{prop} \begin{dfn} Si definisce \emph{parità} di una permutazione $\sigma$ il numero $\Phi (\sigma) = (-1)^s$, dove $s$ è il numero di trasposizioni che compongono $\sigma$, o equivalentemente il numero di inversioni, cioè di coppie $i<j$ t.c. $\sigma(i) > \sigma(j)$.
+
+\end{dfn} \begin{prop} Il numero $\Phi(\sigma)$ è univoco per ogni permutazione.
+
+\end{prop} \begin{prop} Siano $\sigma_1,\sigma_2$ permutazioni, si ha che $\Phi(\sigma_1 \circ \sigma_2)= \Phi(\sigma_1) \Phi(\sigma_2)$.
+
+\end{prop} \begin{prop} Ogni permutazione si scrive in modo unico come composizione di cicli disgiunti.
+
+\end{prop} \begin{prop} Sia $S_n$ l'insieme delle permutazioni dei primi $n$ naturali, la funzione definita al punto 1 è 
+$$\det A = \sum _{\sigma \in S_n} \Phi(\sigma ) a_{1 \sigma (1)} a_{2 \sigma (2)} ... a_{n \sigma (n)}$$
+
+\end{prop} \begin{dfn} Sia $A \in M_n ({\mathbb{K}})$, $A_{ij} \in M_{n-1} ({\mathbb{K}})$ la matrice ottenuta rimuovendo la $i$-esima riga e la $j$-esima colonna da $A$ e $\Gamma _{ij} = (-1)^{i+j} \det A_{ij}$, lo \emph{sviluppo di Laplace} di $\det A$ secondo la $i$-esima riga è 
+$$\det A = a_{i1} \Gamma _{i1} + a_{i2} \Gamma _{i2} + ... a_{in} \Gamma _{in}$$
+e quello secondo la $j$-esima colonna è
+$$\det A = a_{1j} \Gamma _{1j} + a_{2j} \Gamma _{2j} + ... a_{nj} \Gamma _{nj}.$$
+
+\end{dfn} \begin{prop} $\det A = \det A^t$
+
+\end{prop} \begin{prop} Dagli assiomi per righe si ricava che 
+\begin{enumerate}
+\item
+$
+\begin{aligned}
+\det
+\begin{pmatrix}
+	\mathbf{R}_1 	\\
+	...				\\
+	\mathbf{R}_i 	\\
+	...				\\
+	\mathbf{R}_j 	\\
+	...				\\
+	\mathbf{R}_n	
+\end{pmatrix}
+=
+- \det
+\begin{pmatrix}
+	\mathbf{R}_1 	\\
+	...				\\
+	\mathbf{R}_j 	\\
+	...				\\
+	\mathbf{R}_i 	\\
+	...				\\
+	\mathbf{R}_n	
+\end{pmatrix}
+\end{aligned}
+$
+\item
+$
+\begin{aligned}
+\det
+\begin{pmatrix}
+	\mathbf{R}_1 	\\
+	...				\\
+	\mathbf{R}_i 	\\
+	...				\\
+	\mathbf{R}_n	
+\end{pmatrix}
+=
+\det
+\begin{pmatrix}
+	\mathbf{R}_1 	\\
+	...				\\
+	\mathbf{R}_i + \sum_{j \neq i} \lambda_j \mathbf{R}_j 	\\
+	...				\\
+	\mathbf{R}_n	
+\end{pmatrix}
+\end{aligned}
+$
+ 
+e lo stesso vale per le colonne.
+\end{enumerate}
+
+\end{prop} \begin{prop} Inoltre, $\det A=0 \Leftrightarrow A$ ha una riga o una colonna che è CL delle altre. In particolare, $\det A = 0$ se $A$ ha una riga o una colonna nulla.
+
+\end{prop} \begin{prop} Si ha che
+$$
+\begin{aligned}
+\det
+\begin{pmatrix}
+	a_{11}	& a_{12}	& ...		& a_{1n}	\\
+	0		& a_{22}	& ...		& a_{2n}	\\
+	\vdots	& \vdots	& \ddots	& \vdots	\\
+	0		& 0			& ...		& a_{nn}	\\
+\end{pmatrix}
+=
+\det
+\begin{pmatrix}
+	a_{11}	& 0			& ...		& 0			\\
+	a_{21}	& a_{22}	& ...		& 0			\\
+	\vdots	& \vdots	& \ddots	& \vdots	\\
+	a_{n1}	& a_{n2}	& ...		& a_{nn}	\\
+\end{pmatrix}
+= a_{11} a_{12} ... a_{nn}
+\end{aligned}
+$$
+
+\end{prop} \begin{prop} Sia $A \in M_n ({\mathbb{K}})$ e $A'$ una matrice a scala ad essa associata. Allora $\det A = \rho \det A'$, dove $\rho \neq 0$ è il prodotto degli scalari per cui sono state moltiplicate le righe di A durante l'algoritmo di Gauss (escludendo durante le combinazioni lineari) moltiplicato per $1$ se sono state scambiate righe un numero pari di volte, per $-1$ se se sono state scambiate righe un numero dispari di volte.
+\end{prop}
+
+\subsection{Matrice inversa} 
+
+\begin{dfn} Si dice che $A \in M_n ({\mathbb{K}})$ è \emph{invertibile} se $\exists A^{-1} \ | \ AA^{-1} = A^{-1}A = I$. $A^{-1}$ è detta \emph{matrice inversa} di $A$.
+
+\end{dfn} \begin{prop} $ \begin{aligned}
+A^{-1} = \frac{1}{\det A} 
+\begin{pmatrix}
+	\Gamma _{11}	& \Gamma _{21}	& ...		& \Gamma _{n1}	\\
+	\Gamma _{12}	& \Gamma _{22}	& ...		& \Gamma _{n2}	\\
+	\vdots			& \vdots		& \ddots	& \vdots		\\
+	\Gamma _{1n}	& \Gamma _{2n}	& ...		& \Gamma _{nn}	
+\end{pmatrix}
+\end{aligned}
+$
+
+\end{prop} \begin{prop} $A \in M_n (\mathbb{K})$ è invertibile $\Leftrightarrow$ $\det A \neq 0$.
+
+\end{prop} \begin{prop} Tramite l'algoritmo di Gauss completo, si può passare dalla matrice $(A|I)$ alla matrice $(I|A^{-1})$. 
+
+\end{prop} \begin{prop}[Teorema di Binet.] $\det AB = \det A \det B$
+\end{prop}
+
+\section{Cambi di base}
+
+\begin{dfn} Sia $L: V \to V'$ un'AL, la matrice $A_{\mathcal{BB'}}$ ad essa \emph{associata} nella base $\mathcal{B}=\{ \vb _1 , ..., \vb _n \}$ in $V$ e $\mathcal{B'}=\{ \vb ' _1 , ..., \vb ' _m \}$ in $V'$ è 
+$$
+A_{\mathcal{BB'}} = \left(L( \vb _1 )_\mathcal{B'} ... L( \vb _n )_\mathcal{B'}\right) \in M_{m,n}(\mathbb{K}) 
+$$
+
+\end{dfn} \begin{prop} Siano $V,V'$ SV su $\mathbb{K}$ con basi rispettivamente $\mathcal{B}=\{ \vb _1 , ..., \vb _n \}$ e $\mathcal{B'}=\{ \vb ' _1 , ..., \vb ' _n \}$. Sia $F: V \to V',\ \vb_i \mapsto \vb '_i$. Allora la matrice associata ad $F$ nelle basi scelte è $A_{\mathcal{BB'}}=I_n$.
+
+\end{prop} \begin{prop} Sia $I_{\mathcal{BB'}}$ la matrice associata all'applicazione identità nella base ${\mathcal{B}}$ nel dominio e ${\mathcal{B'}}$ nel codominio, si ha che $I_{\mathcal{BB'}}=I_{\mathcal{B'B}} ^{-1}$.
+
+\end{prop} \begin{prop} Sia $L: V \to W $ un'AL, con $\dim V = n$ e $\dim W = m$, 
+$$A_{\mathcal{BB'}}=I_{\mathcal{B'C}_m} ^{-1} A_{\mathcal{C}_n \mathcal{C}_m} I_{\mathcal{BC}_n}$$
+\end{prop}
+
+\section{Autovettori e autovalori} 
+\subsection{Autovalori, autovettori e diagonalizzabilità}
+
+\begin{dfn} Sia $F: V \to V$ un'AL, con $V$ SV su $\mathbb{K}$ (anche $\infty$-dimensionale). Siano $\lambda \in \mathbb{K}, \vv \neq \mathbf{0}_V$. Si dice che $\vv$ è \emph{autovettore} di $F$ con \emph{autovalore} $\lambda$ se $F(\vv ) = \lambda \vv$. Sia $A$ una matrice, gli autovettori e gli autovalori di $A$ sono quelli dell'AL associata ad $A$ nella base canonica.
+
+\end{dfn} \begin{dfn} Sia $F: V \to V$ un'AL, con $V$ SV FG su $\mathbb{K}$. $F$ si dice \emph{diagonalizzabile} se esiste una base in cui la matrice associata ad $F$ è diagonale.
+
+\end{dfn} \begin{prop} Sia $F: V \to V$ un'AL, con $V$ SV FG su $\mathbb{K}$. $F$ è diagonalizzabile $\Leftrightarrow$ esiste una base di autovettori di $F$.
+
+\end{prop} \begin{dfn} Una matrice $A \in M_n (\mathbb{K})$ si dice \emph{diagonalizzabile} se $\exists P \in M_n (\mathbb{K})$ invertibile t.c. $P^{-1}AP$ sia diagonale.
+
+\end{dfn} \begin{prop} Sia $F: V \to V$ un'AL ed $A \in M_n (\mathbb{K})$ la matrice associata ad essa in una qualunque base, $F$ è diagonalizzabile $\Leftrightarrow$ $A$ è diagonalizzabile. Inoltre, la base che diagonalizza $F$ è composta dai vettori colonna della matrice che diagonalizza $A$.
+
+\end{prop} \begin{dfn} Data $A \in M_n (\mathbb{K})$, il \emph{polinomio caratteristico} di $A$ è $p_A (x)=det(A-xI)$.
+
+\end{dfn} \begin{prop} $\lambda$ è autovalore di $A$ $\Leftrightarrow$ $p_A (\lambda)=0$. 
+
+\end{prop} \begin{dfn} $A,B \in M_n (\mathbb{K})$ si dicono \emph{simili} se $\exists Q \in M_n (\mathbb{K})$ invertibile t.c. $Q^{-1}AQ=B$. In simboli, $A \sim B$.
+
+\end{dfn} \begin{prop} $A \sim B \Leftrightarrow B \sim A$.
+
+\end{prop} \begin{prop} $A \sim B \Rightarrow p_A (x) = p_B (x)$. (NB: il contrario non è vero).
+
+\end{prop} \begin{dfn} Sia $F: V \to V$ un'AL, l'\emph{autospazio} di $F$ su $\lambda$ è 
+$$V_{\lambda}=\{ \vv \in V \ | \ F( \vv ) = \lambda \vv\}.$$
+(NB: $\bl{0} \in V_{\lambda}$, ma per definizione non è un autovettore).
+
+\end{dfn} \begin{prop} $V_{\lambda} = \ker(A - \lambda I).$ 
+
+\end{prop} \begin{prop} Siano $\vv _1 ,..., \vv _n $ autovettori di autovalori $\lambda _1 ,..., \lambda _n$. Se $\lambda _1 \neq ... \neq \lambda _n$, allora $\vv _1 ,..., \vv _n $ sono LI.
+
+\end{prop} \begin{prop} Sia $A \in M_n (\mathbb{K})$ con $n$ autovalori distinti, allora $A$ è diagonalizzabile.
+
+\end{prop} \begin{dfn} Sia $A \in M_n (\mathbb{K})$ e $\lambda$ un suo autovalore. Si definisce \emph{molteplicità algebrica} di $\lambda$ il numero $m_a (\lambda ) \ | \ p(x) = (x- \lambda) ^{m_a (\lambda )} \ q(x)$ con $q(\lambda ) \neq 0$ (in pratica la più alta potenza di $(x- \lambda)$ che divide $p(x)$). Si definisce \emph{molteplicità geometrica} di $\lambda$ il numero $m_g (\lambda) = \dim V_{\lambda}$.
+
+\end{dfn} \begin{prop} $1 \leq m_g (\lambda ) \leq m_a (\lambda )$ (se $\lambda$ è autovalore).
+
+\end{prop} \begin{prop} $A \in M_n (\mathbb{K})$ è diagonalizzabile con autovalori $\lambda _1 ,..., \lambda _n$ $\Leftrightarrow$ $m_g (\lambda _1)$ $+...+ m_g (\lambda _n) = n$, il che è equivalente a dire che $m_a (\lambda _i ) = m_g (\lambda _i )\ \forall i$.
+
+\end{prop} \begin{prop} Se un'AL $F: V \to V$ ha un autovalore $\lambda=0$, non è iniettiva.
+
+\end{prop} \begin{prop} Siano $L_A , L_B : V \to V$ AL diagonalizzabili associate in una base rispettivamente alle matrici $A$ e $B$, e sia $AB=BA$. Allora se $\vv$ è autovettore di $A$ lo è anche $B \vv$, e vice versa. Si dice che $B$ mantiene stabile l'autospazio di A.
+\end{prop}
+
+\subsection{Forme di Jordan}
+
+\begin{dfn} Si dice \emph{blocco di Jordan} di ordine $r$ ed autovalore $\lambda$ la matrice 
+$$J_{\lambda} ^r = 
+\begin{pmatrix}
+	\lambda 	& 1			& 0			& ...		& 	0		\\
+	0			& \lambda 	& 1			& ... 		& 	0		\\
+	\vdots		& \vdots 	& \vdots	& 		 	& \vdots	\\
+	0			& 0		 	& 0			& ... 		& \lambda	\\
+\end{pmatrix} \in M_n (\mathbb{K}).$$
+
+\end{dfn} \begin{dfn} Si dice \emph{matrice di Jordan} la matrice 
+$$J= \begin{pmatrix}
+	J ^{r_1} _{\lambda _1}	& 0							& ...		& 0							\\
+	0						& J ^{r_2} _{\lambda _2}	& ...		& 0							\\
+	\vdots					& \vdots					& \ddots	& \vdots					\\
+	0						& 0							& ...		& J ^{r_k} _{\lambda _k}	\\
+\end{pmatrix} \in M_{r_1 + ... + r_k}(\mathbb{K}). $$
+\end{dfn}
+
+\begin{thm}[Teorema di Jordan]
+Sia $A\in M_n(\mathbb{C})$. Allora:
+\begin{enumerate}
+	\item $\exists\ P \in M_n(\mathbb{C})$ invertibile tale che $P^{-1}AP=J,$ dove $J$ è una matrice di Jordan con gli autovalori di $A$ sulla diagonale.
+	\item Sia $B\in M_n(\mathbb{C}),$ $B \sim A \Leftrightarrow$ hanno la stessa forma di Jordan (a meno di un riordino dei blocchi di Jordan).
+\end{enumerate}
+\end{thm}
+
+\begin{prop}
+Equivalentemente, data un'AL $T:\mathbb{C}\to \mathbb{C}$ con associata la matrice $A$ rispetto a $\mathcal{C}$, esiste una base $\mathcal{B}$ rispetto alla quale la matrice associata a $T$ è in forma di Jordan. La matrice $P$ dell'enunciato precedente è la matrice di cambio di base tra $\mathcal{B}$ e $\mathcal{C}$.
+\end{prop}
+
+\section{Prodotti scalari ed hermitiani} 
+\subsection{Forme bilineari}
+
+\begin{dfn} Sia $V$ uno SV su $\mathbb{R}$. Una funzione $g:V \times V \to \mathbb{R}$ si dice \emph{forma bilineare} se $\forall \ \vv , \vv ' , \vu , \vu ' \in V ,\ \lambda \in \mathbb{R}$ si ha
+\begin{enumerate}
+	\item $g(\vu + \vu ', \vv) = g(\vu, \vv) + g(\vu ', \vv)$
+	\item $g(\vu, \vv + \vv ') = g(\vu, \vv) + g(\vu, \vv ')$
+	\item $g(\lambda \vu, \vv) = \lambda g(\vu, \vv)$
+	\item $g(\vu, \lambda \vv) = \lambda g(\vu, \vv)$.
+\end{enumerate} 
+ 
+Se inoltre $g(\vu  ,\vv ) = g(\vv , \vu )$, $g$ si dice forma bilineare \emph{simmetrica} o \emph{prodotto scalare} (alcuni, inclusa Wikipedia, definiscono prodotti scalari solo le FB simmetriche definite positive).
+
+\end{dfn} \begin{prop} Siano $V$ SV FG con $\dim V = n$, $\mathcal{B}=\{ \vv _1 ,..., \vv _n \}$ base di $V$ e $c_{ij}$ con $i,j \in \{ 1,...,n \}$ scalari. Allora $\exists !$ una FB $g:V \times V \to \mathbb{R} \ | \ g(\vv _i , \vv _j)=c_{ij} \ \forall \ i,j $.
+
+\end{prop} \begin{prop} Sia $V$ SV FG con $\dim V = n$. Fissata una base $\mathcal{B}=\{ \vv _1 ,..., \vv _n \}$, esiste una corrispondenza biunivoca tra $\{ g:V \times V \to \mathbb{R}\ \mathrm{FB}\}$ e $M_n (\mathbb{R})$, data da
+\begin{align*}
+g &\to C= \begin{pmatrix}
+	g(\vv_1,\vv_1)	& ...		& g(\vv_1,\vv_n)	\\
+	\vdots			& \ddots	& \vdots			\\
+	g(\vv_n,\vv_1)	& ... 		& g(\vv_n,\vv_n)
+\end{pmatrix} \\ 
+C &\to g(\vv,\vw)=(\vv )_{\mathcal{B}} ^t C (\vw )_{\mathcal{B}}.
+\end{align*}
+
+\end{prop} \begin{prop} FB simmetriche corrispondono a matrici simmetriche.
+
+\end{prop} \begin{prop} Sia $g$ una FB con matrice associata $C$ nella base $\mathcal{B}$. La matrice associata a $g$ nella base $\mathcal{B'}$ è 
+$$ C' = I_{\mathcal{B'} \mathcal{B}} ^t C I_{\mathcal{B'} \mathcal{B}}. $$
+
+\end{prop} \begin{dfn} Due matrici $A,B \in M_n (\mathbb{K})$ si dicono \emph{congruenti} se $\exists P \in M_n (\mathbb{R})$ invertibile $| \ P^t AP =B$. In simboli $A \cong B$.
+\end{dfn}
+
+\subsection{Prodotti scalari} 
+
+\begin{dfn} Sia $V$ uno SV su un campo $\mathbb{K}$. Un PS si dice \emph{non degenere} se $\scalprod{\vu}{\vv}=0 \ \forall \vv \in V \Rightarrow \vu = \bl{0}$, e si dice \emph{definito positivo} se $\scalprod{\vv}{\vv} \geq 0\ \forall \vv \in V$ e  $\scalprod{\vv}{\vv} = 0 \Rightarrow \vv = \bl{0}$.
+
+\end{dfn} \begin{dfn} Sia $\scalprod{}{}$ un PS DP. La \emph{norma} del vettore $\vv$ è definita come
+$$|| \vv || = \sqrt{\scalprod{v}{v}}.$$
+
+\end{dfn} \begin{prop} Sia $V$ SV su $\mathbb{R}$ con $\scalprod{}{}$ PS DP. Si dice che $\vu$ e $\vv$ sono \emph{ortogonali} (o perpendicolari) tra loro rispetto a $\scalprod{}{}$ se $\scalprod{\vu}{\vv}=0$. Si scrive $\vu \perp \vv$.
+
+\end{prop} \begin{prop} Se $\scalprod{}{}$ è un PS DP, allora $\nexists \vv$ ortogonale a se stesso. Al contrario, se $\scalprod{}{}$ è degenere, allora $\exists \vv$ ortogonale a se stesso.
+
+\end{prop} \begin{prop} Il prodotto di Minkowski è il prodotto scalare $\scalprod{}{} _M$ tale che
+$$\scalprod{\begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix}}{\begin{pmatrix} y_1 \\ \vdots \\ y_n \end{pmatrix}}_M =x_1 y_1 + ... + x_{n-1} y_{n-1} - x_n y_n.$$
+Esso non è né DP né degenere.
+
+\end{prop} \begin{prop} Sia $W$ uno SSV di $V$ su $\mathbb{R}$ con un PS $\scalprod{}{}$. Si definisce \emph{sottospazio ortogonale} a $W$ 
+$$W^{\perp}=\{ \vv \in V \ | \ \scalprod{\vv}{\vu} = 0 \}. $$
+
+\end{prop} \begin{prop} $W^{\perp}$ è SSV di $V$.
+
+\end{prop} \begin{prop} Se $\scalprod{}{}$ è il PS euclideo, allora $\dim W + \dim W^{\perp} = \dim V$.
+
+\end{prop} \begin{dfn} Sia $V$ SV su $\mathbb{R}$ con $\scalprod{}{}$ PS DP. Una base $\mathcal{B}=\{ \vv _1 ,..., \vv _n \}$ di $V$ è \emph{ortogonale} se 
+$$ \scalprod{\vv _i}{\vv _j} \left\lbrace \begin{aligned}
+	\neq 0\ \mathrm{se}\ i=j \\
+	=0\ \mathrm{se}\ i \neq j
+\end{aligned} \right.$$
+e \emph{ortonormale} se 
+$$ \scalprod{\vv _i}{\vv _j} = \delta _{ij} \left\lbrace \begin{aligned}
+	=1\ \mathrm{se}\ i=j \\
+	=0\ \mathrm{se}\ i \neq j
+\end{aligned} \right.$$
+
+\end{dfn} \begin{prop} $V$ SV su $\mathbb{R}$ con $\scalprod{}{}$ PS DP e siano $\vv ,\vw \in V$, il \emph{coefficiente di Fourier} di $\vv$ rispetto a $\vw$ è $$c(\vv, \vw) = \frac{\scalprod{\vv}{\vw}}{\scalprod{\vw}{\vw}}.$$
+
+\end{prop} \begin{prop} Sia $V$ SV su $\mathbb{R}$ con $\dim V =n$, con $\scalprod{}{}$ PS DP, e sia $W$ SSV di $V$ con base ortogonale $\mathcal{B}=\{ \vb _1 ,..., \vb _m \}$. Allora $\exists \vb _{m+1},..., \vb_n \in V | \{ \vb _1 ,..., \vb _m ,...,$ $\vb _n \}$ è base ortogonale di $V$ rispetto a $\scalprod{}{}$. Ciò è possibile grazie all'\emph{algoritmo di Gram-Schmidt}.
+
+\end{prop} \begin{prop} $V$ SV FG su $\mathbb{R}$ con $\scalprod{}{}$ PS DP. Allora esiste una base di $V$ ortonormale rispetto a $\scalprod{}{}$.
+
+\end{prop} \begin{prop} Sia Sia $V$ SV su $\mathbb{R}$ con $\dim V =n$, con $\scalprod{}{}$ PS DP, e sia $\mathcal{B}$ una base ortonormale rispetto a $\scalprod{}{}$. Allora la matrice associata a $\scalprod{}{}$ in $\mathcal{B}$ è $I_n$.
+\end{prop}
+
+\subsection{Prodotti hermitiani} 
+
+\begin{dfn} Sia $V$ uno SV su $\mathbb{K}$. Una funzione $g:V \times V \to \mathbb{K}$ si dice \emph{prodotto hermitiano} se $\forall \ \vv , \vv ' , \vu , \vu ' \in V ,\ \lambda \in \mathbb{K}$ si ha
+\begin{enumerate}
+	\item $g(\vu + \vu ', \vv) = g(\vu, \vv) + g(\vu ', \vv)$
+	\item $g(\vu, \vv + \vv ') = g(\vu, \vv) + g(\vu, \vv ')$
+	\item $g(\lambda \vu, \vv) = \lambda g(\vu, \vv)$
+	\item $g(\vu, \lambda \vv) = \overline{\lambda} g(\vu, \vv)$.
+	\item $g(\vu  ,\vv ) = \overline{g(\vv , \vu )}$
+\end{enumerate}
+
+\end{dfn} \begin{prop} Se $\scalprod{}{}$ è un prodotto hermitiano, $\scalprod{\vv}{\vv} \in \mathbb{R}$. Le nozioni di \emph{definito positivo} e \emph{non degenere} si estendono ai prodotti hermitiani. 
+
+\end{prop} \begin{dfn} Il \emph{prodotto hermitiano standard} è $\scalprod{}{} _h$ con $$\scalprod{\begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix}}{\begin{pmatrix} y_1 \\ \vdots \\ y_n \end{pmatrix}}_h =x_1 \overline{y_1} + ... + x_n \overline{y_n}$$
+\end{dfn}
+
+\section{Teorema spettrale} 
+\subsection{Matrici ortogonali e simmetriche} 
+
+\begin{dfn} Sia $V$ SV FG su $\mathbb{R}$, con $\scalprod{}{}$ PS DP. Un'AL $U:V \to V$ si dice \emph{ortogonale} rispetto a $\scalprod{}{}$ se $$\scalprod{U(\vv )}{U(\vw )} = \scalprod{\vv}{\vw} \ \forall \ \vv , \vw \in V.$$
+
+\end{dfn} \begin{prop} Sia $V$ SV su $\mathbb{R}$ con $\dim V =n$, con $\scalprod{}{}$ PS DP e $U:V \to V$ un'AL. Le seguenti affermazioni sono equivalenti:
+\begin{enumerate}
+	\item $U$ è ortogonale.
+	\item $\scalprod{U(\vv )}{U(\vv )} = \scalprod{\vv}{\vv} \ \forall \ \vv , \vw \in V$ ($U$ conserva la norma dei vettori).
+	\item $\{ \vb _1 ,..., \vb _n \}$ è base ortonormale di $V$ rispetto a $\scalprod{}{} \Rightarrow 
+	\{ U(\vb _1),...,$ $U(\vb _n) \}$ è base ortonormale di $V$ rispetto a $\scalprod{}{}$.
+\end{enumerate}
+
+\end{prop} \begin{dfn} $A \in M_n (\mathbb{R})$ si dice \emph{ortogonale} se $$\scalprod{A \vv}{A \vw} _e = \scalprod{\vv}{\vw} _e \ \forall \ \vv , \vw \in V.$$
+
+\end{dfn} \begin{prop} Sia $A \in M_n (\mathbb{R})$ le seguenti affermazioni sono equivalenti:
+\begin{enumerate}
+	\item $A$ è ortogonale.
+	\item $A^t=A^{-1}$.
+	\item I vettori riga di $A$ formano una base ortonormale di $\mathbb{R}^n$ rispetto a $\scalprod{}{} _e$ e lo stesso vale per le colonne.
+\end{enumerate}
+
+\end{prop} \begin{prop} Sia $V$ SV FG su $\mathbb{R}$, con $\scalprod{}{}$ PS DP e $U:V \to V$ un'AL con matrice associata $A$ in una base $\mathcal{B}$ ortonormale rispetto a $\scalprod{}{}$. Allora $U$ è ortogonale $\Leftrightarrow$ $A$ è ortogonale.
+
+\end{prop} \begin{prop} Se $A \in M_n (\mathbb{R})$ è ortogonale, gode delle seguenti proprietà:
+\begin{enumerate}
+	\item $\det A = \pm 1$
+	\item $A^{-1}=A^t$ è ortogonale.
+	\item Se $B \in M_n (\mathbb{R})$ è ortogonale, $AB$ e $BA$ sono ortogonali.
+\end{enumerate}
+
+\end{prop} \begin{dfn} Sia $V$ SV FG su $\mathbb{R}$, con $\scalprod{}{}$ PS DP. Un'AL $T:V \to V$ si dice \emph{simmetrica} rispetto a $\scalprod{}{}$ se $$\scalprod{T(\vv )}{\vw}=\scalprod{\vv}{T(\vw )}.$$
+
+\end{dfn} \begin{prop} Sia $V$ SV FG su $\mathbb{R}$, con $\scalprod{}{}$ PS DP e $T:V \to V$ un'AL con matrice associata $A$ in una base $\mathcal{B}$ ortonormale rispetto a $\scalprod{}{}$. Allora $U$ è simmetrica $\Leftrightarrow$ $A$ è simmetrica.
+\end{prop}
+
+\subsection{Matrici unitarie ed hermitiane} 
+
+\begin{dfn} Sia $V$ SV FG su $\mathbb{K}$ con $\scalprod{}{}_h$ PH DP. Un'AL $U:V \to V$ si dice \emph{unitaria} se $$\scalprod{U(\vv )}{U(\vw )}_h = \scalprod{\vv}{\vw}_h \ \forall \ \vv , \vw \in V.$$
+
+\end{dfn} \begin{dfn} $A \in M_n (\mathbb{K}$ si dice \emph{unitaria} se $$A^{-1}=\overline{A^t}$$
+
+\end{dfn} \begin{prop} Fissata una base, ad AL unitarie corrispondono matrici unitarie.
+
+\end{prop} \begin{dfn} Sia $V$ SV FG su $\mathbb{K}$ con $\scalprod{}{}_h$ PH DP. Un'AL $T:V \to V$ si dice \emph{hermitiana} se $$\scalprod{T(\vv )}{\vw}_h = \scalprod{\vv}{T(\vw )}_h \ \forall \ \vv , \vw \in V.$$
+
+\end{dfn} \begin{dfn} $A \in M_n (\mathbb{K})$ si dice \emph{hermitiana} se $$A=\overline{A^t}.$$
+
+\end{dfn} \begin{prop} $A \in M_n (\mathbb{K})$ è hermitiana $\Leftrightarrow$ $\scalprod{A\vv}{\vw}=\scalprod{\vv}{A\vw}_h$, dove $\scalprod{}{}_h$ è il PH standard in $\mathbb{K}^n$.
+
+\end{prop} \begin{prop} Fissata una base ortonormale rispetto a un PH DP, ad AL hermitiane corrispondono matrici hermitiane e ad AL unitarie corrispondono matrici unitarie.
+\end{prop}
+
+\subsection{Teorema spettrale} 
+
+\begin{prop} Sia $A \in M_n (\mathbb{R})$ una matrice simmetrica. Allora tutti gli autovalori di $A$ sono reali. Lo stesso vale per le matrici hermitiane.
+
+\end{prop} \begin{prop} Sia $A \in M_n (\mathbb{R})$ una matrice simmetrica e siano $\lambda \in \mathbb{R}$ un suo autovalore, $\vv \in V_{\lambda}$, $\vw \perp \vv$ rispetto a $\scalprod{}{}_e$. Allora $A \vw \perp \vv$. Lo stesso vale per matrici hermitiane e vettori ortogonali rispetto a $\scalprod{}{}_h$.
+
+\end{prop} \begin{prop} Sia $A \in M_n (\mathbb{R})$ una matrice simmetrica e siano $\lambda \neq \mu \in \mathbb{R}$ due suoi autovalori. Allora, rispetto a $\scalprod{}{}_e$, $\vv \perp \vw \ \forall \ \vv \in V_{\lambda}, \vw \in V_{\mu}$. Si scrive $V_{\lambda} \perp V_{\mu}$ rispetto a $\scalprod{}{}_e$. Lo stesso vale per matrici hermitiane e $\scalprod{}{}_h$.
+
+\end{prop} 
+
+\begin{thm} [Teorema spettrale, caso reale] Sia $V$ SV su $\mathbb{R}$ con $\dim V=n$, e sia $\scalprod{}{}$ un PS DP. Sia $T:V \to V$ un'AL simmetrica associata alla matrice $A \in M_n(\mathbb{R})$ in una base $\mathcal{B}$ ortonormale rispetto a $\scalprod{}{}$. Allora
+\begin{enumerate}
+	\item $T$ è diagonalizzabile ed esiste una base $\mathcal{N}$ ortonormale rispetto a $\scalprod{}{}$ costituita da autovettori di $T$.
+	\item $A$ è diagonalizzabile tramite una matrice $P$ ortogonale, ossia $\exists P \in M_n (\mathbb{R}) |$ $P^t AP = P^{-1} AP$ è una matrice diagonale.
+\end{enumerate}
+
+\end{thm} \begin{thm}[Teorema spettrale, caso complesso] Sia $V$ SV su $\mathbb{K}$ con $\dim V=n$, e sia $\scalprod{}{}_h$ un PH DP. Sia $T:V \to V$ un'AL hermitiana associata alla matrice $A \in M_n(\mathbb{K})$ in una base $\mathcal{B}$ ortonormale rispetto a $\scalprod{}{}_h$. Allora
+\begin{enumerate}
+	\item $T$ è diagonalizzabile ed esiste una base $\mathcal{N}$ ortonormale rispetto a $\scalprod{}{}_h$ costituita da autovettori di $T$.
+	\item $A$ è diagonalizzabile ad una matrice reale tramite una matrice $P$ unitaria, ossia $\exists P \in M_n (\mathbb{R}) | \overline{P^t} AP = P^{-1} AP \in M_n(\mathbb{R})$ è una matrice diagonale reale.
+\end{enumerate}
+\end{thm} 
+\begin{proof}
+Sia $\lambda_1$ un autovalore reale di $T$ (che esiste per quanto detto sopra) e sia $\vu_1 \in V$ un autovettore di norma $1$ relativo a $\lambda_1$. Sia $W_1=\langle \vu_1 \rangle^{\perp}$. Allora si ha che $\dim W_1 =n-1.$ Consideriamo ora $T_1=T|_{W_1}:W_1 \to V.$ Dato che $\forall \vw \in W_1\ \vu_1 \perp T_1(\vw),$ si ha che $\mathrm{Im}\ T_1 \subseteq W_1,$ quindi $T_1:W_1 \to W_1.$ 
+
+Si può ripetere tutto il ragionamento considerando un autovalore di $T_1$ $\lambda_2 \in \mathbb{R}$ ed un relativo autovettore di norma 1 $\vu_2 \in W_1$. Chiaramente, dato che $T_1$ è una restrizione di $T,$ $\lambda_2$ e $\vu_2$ sono autovalore e autovettore di $T$. Inoltre, definendo $W_2=\langle \vu_2 \rangle^{\perp}$, ogni suo vettore è ortogonale a $u_1$ dato che $W_2 \subseteq W_1$. Si restringe $T_1$ a $W_2$ in modo del tutto analogo a sopra, e così via.
+
+Dopo $n$ passi si saranno ottenuti $n$ autovettori LI ortogonali e di norma $1$ $\vu_1,...,\vu_n,$ che costituiscono la base ortonormale di autovettori $\mathcal{N}.$ Dunque $T$ è diagonalizzabile, e $A$ è diagonalizzabile alla matrice con autovettori reali $\lambda_1,...,\lambda_n$ sulla diagonale, tramite la matrice unitaria di cambio di base da $\mathcal{B}$ a $\mathcal{N}.$
+
+Se $\mathbb{K} \subseteq \mathbb{R}$ il caso complesso si riduce a quello reale.
+\end{proof}
+
+\begin{prop} Una formulazione equivalente del Teorema spettrale è la seguente: sia $V$ SV su $\mathbb{R}$ con $\dim V=n$, e sia $\scalprod{}{}$ un PS DP. Sia $\scalprod{}{}'$ un PS (non necessariamente DP). Allora esiste una base $\mathcal{N}$ ortonormale rispetto a $\scalprod{}{}$ ed ortogonale rispetto a $\scalprod{}{}'$.
+
+\end{prop} \begin{prop} Sia $V$ SV su $\mathbb{R}$ con $\dim V=n$, e sia $\scalprod{}{}$ un PS DP associato ad una matrice diagonale $D$ rispetto ad una base $\mathcal{N}$. Allora 
+\begin{enumerate}
+	\item $\scalprod{}{}$ è non degenere $\Leftrightarrow$ tutti gli elementi sulla diagonale di $D$ sono $\neq 0$.
+	\item $\scalprod{}{}$ è DP $\Leftrightarrow$ tutti gli elementi sulla diagonale di $D$ sono $> 0$.
+\end{enumerate} 
+\end{prop} 
+ 
+\begin{prop} Siano $A,B,P \in M_n (\mathbb{R})$ con $P$ invertibile e $B=P^t AP$. $A$ e $B$ hanno gli stessi autovalori $\Leftrightarrow$ $P^t = P^{-1}$.
+\end{prop}
+
+\subsection{Teorema di Sylvester} 
+
+\begin{prop} Sia $V$ SV su $\mathbb{K}$ con $\dim V=n$, sia $\scalprod{}{}$ un PS DP con matrice associata $C$ in una base $\mathcal{B}$ qualsiasi e siano $\lambda _1 ,..., \lambda _n$ i suoi autovalori. Definiti $p=\sum _{\lambda_i > 0} m_a (\lambda_i )$, $q=\sum _{\lambda_i > 0} m_a (\lambda_i )$ e $r=m_a (0)$, si definisce \emph{segnatura} di $\scalprod{}{}$ $(p,q)$ oppure $(p,q,r)$.
+
+\end{prop} \begin{thm}[Teorema di Sylvester] Sia $\scalprod{}{}$ un PS sullo SV $V$ sul campo $\mathbb{K}$ con $\dim V =n$, la sua segnatura $(p,q,r)$ non dipende dalla base scelta. Inoltre esiste una base in cui la matrice associata a $\scalprod{}{}$ è la sua \emph{forma standard}
+$$D=\begin{pmatrix}
+	I_p	& 0		& 0		\\
+	0	& -I_q	& 0		\\
+	0	& 0 	& 0_r	\\
+\end{pmatrix} \in M_n (\mathbb{R}).$$
+
+\end{thm} \begin{prop} Un PS $\scalprod{}{}$ con segnatura $(p,q,r)$ è definito positivo se $q=r=0$ ed è non degenere se $q=0$.
+\end{prop}
+
+\section{Forme quadratiche} 
+
+\begin{dfn} Sia $V$ uno SV su $\mathbb{R}$ e sia $\scalprod{}{}$ un PS. Allora la funzione $$q: V \to \mathbb{R}, \ q: \vv \mapsto \scalprod{\vv}{\vv}$$ si dice \emph{forma quadratica} associata a $\scalprod{}{}$.
+
+\end{dfn} \begin{prop} Data una FQ $q$, ad essa è univocamente associato il PS dato da 
+$$\scalprod{\vu}{\vv}=\frac{q(\vu + \vv ) - [q(\vu )+q(\vv )]}{2}.$$
+
+\end{prop} \begin{prop} Sia $V$ uno SV su $\mathbb{R}$ e sia $\scalprod{}{}$ un PS con matrice associata $C$ nella base $\mathcal{B}$. Allora la FQ $q$ associata a $\scalprod{}{}$ è data da $q(\vv ) = (\vv)_{\mathcal{B}} ^t C (\vv)_{\mathcal{B}}$.
+
+\end{prop} \begin{prop} Sia $V$ uno SV su $\mathbb{R}$ con $\dim V=n$ e base $\mathcal{B}$ fissata, e sia $q$ una FQ con $q(x_1 ,..., x_n) = a_{11} x_1 ^2 + a_{12} x_1 x_2 +...+ a_{nn} x_n ^2$, $q$ è associata alla matrice
+$$C=\begin{pmatrix}
+	a_{11}				& \frac{a_{12}}{2}	& ...		& \frac{a_{1n}}{2} 	\\
+	\frac{a_{12}}{2}	& a_{12}			& ...		& \frac{a_{2n}}{2}	\\
+	\vdots				& \vdots			& \ddots	& \vdots			\\
+	\frac{a_{1n}}{2}	& \frac{a_{2n}}{2}	& ...		& a_{nn}			
+\end{pmatrix}$$
+
+\end{prop} \begin{prop}[Teorema degli assi principali] Sia $q: \mathbb{R}^n \to \mathbb{R}$ una FQ associata in $\mathcal{C}$ alla matrice $C$. Allora esiste una base ortonormale $\mathcal{N}$ costituita da autovettori di $C$ rispetto a cui la matrice associata a $q$ è diagonale e dunque $q(x_1 ,..., x_n ) = \lambda_1 x_1 +...+ \lambda_n x_n$, dove gli $x_i$ sono le coordinate di un vettore rispetto a $\mathcal{N}$ e i $\lambda _i$ sono autovalori di $C$.
+
+\end{prop} \begin{prop} Nel piano, cosiderando l'equazione $q(x,y)=c >0$, se la segnatura di $q$ è:
+\begin{itemize}
+	\item $(0,2,0)$ la conica associata non esiste.
+	\item $(1,1,0)$ la conica associata è un'iperbole.
+	\item $(2,0,0)$ la conica associata è un'ellisse.
+	\item $(1,0,1)$ la conica associata è una parabola.
+\end{itemize}
+\end{prop}
+
+\section{Spazi duali} 
+
+\begin{dfn} Sia $V$ uno SV su $\mathbb{K}$. Si dice \emph{spazio duale} di $V$ l'insieme
+$$V^{*}=\{ f:V \to \mathbb{K} \ | \ f \ \mathrm{applicazione \ lineare} \}$$
+
+\end{dfn} \begin{prop} Uno spazio duale è uno SV.
+
+\end{prop} \begin{prop} Sia $V$ uno SV su $\mathbb{K}$ con $\dim V = n$ e $\mathcal{B}=\{ \vv _1 , ... , \vv _n \}$ una sua base. Si definiscono in $V^*$ le funzioni 
+$$v^* _i :V \to \mathbb{K}, \ v_j \mapsto \delta _{ij} $$
+
+\end{prop}  \begin{dfn} Sia $V$ uno SV su $\mathbb{K}$ con $\dim V = n$ e © una sua base. Allora $\mathcal{B}^*=\{ \vv ^* _1 , ... , \vv ^* _n \}$ è base di $V^*$ ed è detta \emph{base duale}.
+
+ \end{dfn} \begin{prop} Sia $V$ uno SV FG su $\mathbb{K}$ con una base fissata $\mathcal{B}=\{ \vv _1 , ... , \vv _n \}$. Allora per l'associazione AL-matrici $V^* \cong M_{1,n}(\mathbb{K})$. Inoltre $V \cong V^*$ tramite l'isomorfismo $\phi : V \to V^*,\ \vv_i \mapsto \vv_i ^*$.
+
+\end{prop} \begin{prop} Sia $V$ uno SV su $\mathbb{K}$ con $\dim V = n$, e sia $\scalprod{}{}$ un PS non degenere. Sia $\vv \in V$, si consideri $L_{\vv}:V \to \mathbb{K}, \ \vw \mapsto \scalprod{\vv}{\vw}$. Allora la funzione $\Phi :V \to V^*, \ \vv \mapsto L_{\vv}$ è un isomorfismo tra $V$ e $V^*$.
+
+\end{prop} \begin{prop} Sia $V$ uno SV su $\mathbb{K}$ e sia $W$ SSV di $V$. Si definisce
+$$W^{\checkmark} = \{ f \in V^* \ | \ f(\vw ) = 0 \ \forall \ \vw \in W \}.$$
+
+\end{prop} \begin{prop} Sia $V$ uno SV FG su $\mathbb{K}$ e sia $W$ SSV di $V$. Allora $\dim W^{\checkmark}= \dim V - \dim W$.
+
+\end{prop} \begin{prop} Sia $V$ uno SV su $\mathbb{K}$ con $\dim V = n$, e sia $\scalprod{}{}$ un PS non degenere. Sia $\vv \in V$, si consideri $L_{\vv}:V \to \mathbb{K}, \ \vw \mapsto \scalprod{\vv}{\vw}$. Allora $W^{\perp} \cong W^{\checkmark}$ tramite la funzione $\Phi :V \to V^*, \ \vv \mapsto L_{\vv}$.
+
+\end{prop} \begin{prop} Sia $V$ uno SV FG su $\mathbb{K}$ e sia $\scalprod{}{}$ un PS non degenere. Allora $\dim W^{\perp}= \dim V - \dim W$.
+
+\end{prop} \begin{prop} Sia $V$ uno SV su $\mathbb{K}$. Sia $\vv \in V$, si consideri la funzione $\psi \in V^{**}$ con $\psi_{\vv}:V^* \to \mathbb{K},\ \varphi \mapsto \varphi(\vv)$. Allora la funzione $\Phi:V \to V^{**},\ \vv \mapsto \psi_{\vv}$ realizza un isomorfismo canonico tra $V$ e $V^{**}$. I due spazi si possono quindi identificare, identificando $\vv$ con $\psi_{\vv}$.
+
+\end{prop} \begin{prop} Di conseguenza si può pensare che, siano $V$ SV su $\mathbb{K}$, $\vv \in V,\ \varphi \in V^{*}$, $\vv(\varphi)=\varphi(\vv)$.
+\end{prop}
+
+
+\section{Tensori} 
+\subsection{Spazi vettoriali liberi}
+
+ \begin{dfn} Sia $S= \{ s_1 ,..., s_n \}$ un insieme finito, lo \emph{spazio vettoriale libero} di $S$ è 
+$$V_S = \{ f:S \to \mathbb{K} \}.$$
+
+ \end{dfn} \begin{prop} Definendo le operazioni $+$ e $\cdot$ nel modo consueto per le funzioni, $V_S$ è uno SV.
+
+\end{prop} \begin{prop} Si definiscono in $V_S$ le funzioni 
+$$s^* _i :S \to \mathbb{K}, \ s_j \mapsto \delta _{ij}. $$
+
+\end{prop} \begin{prop} Sia $S= \{ s_1 ,..., s_n \}$ un insieme finito di $n$ elementi, $\{ s_1 ^* ,..., s_n ^* \}$ è base di $V_S$.
+
+\end{prop} \begin{prop} Spesso si identificano $s_i$ ed $s_i ^*$. $V_S$ è quindi detto l'insieme delle \emph{combinazioni lineari formali} degli elementi di $S$.
+\end{prop}
+
+\subsection{Tensori e forme multilineari}
+
+ \begin{dfn} Siano $V_1 ,..., V_k , W$ SV FG su $\mathbb{K}$. Un'applicazione $F:V_1 \times ... \times V_k \to W$ si dice \emph{multilineare} se 
+\begin{align*}
+&F( \vv _1 ,..., \alpha \vv _i + \beta \vu _i ,..., \vv _k ) = \alpha F( \vv _1 ,..., \vv _i ,..., \vv _k )+ \beta F( \vv _1 ,..., \vu _i ,..., \vv _k )\ \\ &\forall \ \vv _i , \vu _i \in V_i , \ \alpha , \beta \in \mathbb{R}, \ i \in \{ 1,...,k \}.
+\end{align*}
+
+ \end{dfn}  \begin{dfn} Siano $V,W$ SV FG su $\mathbb{K}$ con basi fissate rispettivamente $\mathcal{B}=\{ \vv _1 , ... , \vv _n \}$ e $\mathcal{B'}=\{ \vv ' _1 , ... , \vv ' _m \}$. Sia $S=\{\vv_i \otimes \vv'_j \ | \ 1 \leq i \leq n,\ 1 \leq j \leq m\}$ l'insieme degli $mn$ simboli senza significato $\vv_i \otimes \vv'_j$. Si dice \emph{prodotto tensoriale} di $V$ e $W$ l'insieme
+$$V \otimes W = V_S = \left\lbrace \sum_{i,j} a_{ij}\vv_i \otimes \vv'_j \ | \ a_{ij} \in \mathbb{K} \right\rbrace.$$
+Un elemento $T$ di $V \otimes W$ si dice \emph{tensore}. Il prodotto tensoriale di due vettori $\vv \in V,\ \vw \in W$ è definito come
+$$\vv \otimes \vw = \sum_{i,j} v_i w_j \vv_i \otimes \vv'_j .$$
+dove le $v_i$ e $w_j$ sono le coordinate dei vettori rispetto alle basi scelte. Se $\exists \vv \in V,\ \vw \in W \ | \ T=\vv \otimes \vw$, $T$ è detto \emph{decomponibile} o riducibile. Non tutti i tensori di $V \otimes W$ sono decomponibili.
+
+ \end{dfn} \begin{prop} Siano $V,W,U$ SV FG su $\mathbb{K}$. Allora esiste un'applicazione bilineare $\phi:V \times W \to V \otimes W$ che soddisfa la seguente proprietà, detta \emph{proprietà universale}: 
+$$\forall g:V \times W \to U\ \mathrm{AB}\quad \exists g_*:V \otimes W \to U\ \mathrm{AL}\ | \ g=g_* \circ \phi.$$
+
+\end{prop} \begin{prop} $\dim(V \otimes W)= \dim V \dim W$
+
+\end{prop} \begin{prop} Sia $V$ SV FG su $\mathbb{K}$, sia $\mathcal{L}(V,V)$ l'insieme delle AL $L:V \to V$, siano $\vv,\vw \in V,\ \varphi \in V^*$ e sia 
+$$L_{\varphi \otimes \vv}:V \to V,\ \vw \mapsto \varphi(\vw)\vv.$$ 
+Allora la funzione $g_*:V^* \otimes V \to \mathcal{L}(V,V),\ \varphi \otimes \vv \mapsto L_{\varphi \otimes \vv}$ realizza un isomorfismo tra $V^* \otimes V$ e $\mathcal{L}(V,V)$.
+
+\end{prop} \begin{prop} Sia $V$ SV FG su $\mathbb{K}$, sia $\mathcal{P}(V)$ l'insieme dei PS $\scalprod{}{}:V \times V \to \mathbb{K}$, siano $\varphi,\psi \in V^*$ e sia 
+$$\scalprod{}{}_{\varphi \otimes \psi}:V \times V \to \mathbb{K},\ (\vv,\vw) \mapsto \varphi(\vv)\psi(\vw).$$
+Allora la funzione $g_*:V^* \otimes V^* \to \mathcal{P}(V),\ \varphi \otimes \psi \mapsto \scalprod{}{}_{\varphi \otimes \psi}$ realizza un isomorfismo tra $V^* \otimes V^*$ e $\mathcal{P}(V)$.
+
+\end{prop} \begin{prop} I ragionamenti fatti per i prodotti tensoriali di due SV si possono generalizzare ad un qualsiasi numero $k$ di SV, sostituendo alle applicazioni bilineari applicazioni $k$-lineari. 
+
+\end{prop}  \begin{dfn} Sia $V$ SV FG su $\mathbb{K}$ con base $\mathcal{B}=\{ \vv _1 , ... , \vv _n \}$. Si dice tensore \emph{covariante} un tensore 
+$$T= \sum T_{i_1...i_r} \vv^{*i_1} \otimes ... \otimes \vv^{*i_r} \in \tau^r = V^* \otimes ... \otimes V^*\ r\ \mathrm{volte}.$$
+Si dice tensore \emph{controvariante} un tensore
+$$T= \sum T^{i_1...i_s} \vv_{i_1} \otimes ... \otimes \vv_{i_s} \in \tau_s = V \otimes ... \otimes V\ s\ \mathrm{volte}.$$
+Si dice tensore \emph{misto} un tensore
+$$T= \sum T _{i_1...i_r} ^{j_1...j_s} \vv^{*i_1} \otimes ... \otimes \vv^{*i_r} \otimes \vv_{j_1} \otimes ... \otimes \vv_{j_s} \in \tau ^r _s = V^* \otimes ... \otimes V^* \otimes V \otimes ... \otimes V.$$
+
+ \end{dfn} \begin{prop} In generale, l'insieme $\tau ^r _s =V^* \otimes ... \otimes V^* \otimes V \otimes ... \otimes V$ è canonicamente isomorfo all'insieme delle AM $F:(V)^r \times (V^*)^s \to \mathbb{K}$ e a quello delle AM $F:(V)^{s} \to (V)^{r}$.\footnote{Source(s): dude trust me}
+\end{prop}
+
+\section{Gruppi} 
+
+ \begin{dfn} Sia $G$ un insieme e $\varphi : G \times G \to G$ una funzione, si dice che $(G, \varphi )$ è un \emph{gruppo} se
+\begin{enumerate}
+	\item $\varphi \ (\varphi (x,y),z)= \varphi \ (x, \varphi (y,z)) \ \forall x,y,z \in G$
+	\item $\exists ! \ e \in G \ | \ \varphi (e,x) = \varphi (x,e) = x \ \forall x \in G$
+	\item $\forall x \in G \ \exists x^{-1} \in G \ | \ \varphi (x,x^{-1}) = \varphi (x^{-1},x) = e$. $y$ è detto l'\emph{inverso} (o meno spesso l'opposto) di $x$.
+\end{enumerate}
+Se $\varphi (x,y) = \varphi (y,x) \ \forall x,y, \in G$ il gruppo è detto \emph{abeliano}.
+
+ \end{dfn}  \begin{dfn} Sia $(G, \varphi)$ un gruppo con un'operazione $\varphi (x,y) := xy$. $H \subset G$ si dice un suo \emph{sottogruppo} se 
+\begin{enumerate}
+	\item $e \in H$
+	\item $\forall x,y \in H \ xy \in H$
+	\item $\forall x \in H \ x^{-1} \in H$.
+\end{enumerate}
+
+ \end{dfn}  \begin{dfn} Siano $(G, \cdot )$ e $(G', * )$ due gruppi. La funzione $\phi : G \to G'$ è detta \emph{omomorfismo} se $\phi (x \cdot y) = \phi (x) * \phi (y) \ \forall x,y \in G$.
+
+ \end{dfn} \begin{prop} Se $\phi : G \to G'$ è un omomorfismo, allora 
+\begin{enumerate}
+	\item $\phi (e_G) = e_{G'}$
+	\item $\phi (x^{-1}) = (\phi (x))^{-1}$
+	\item $\mathrm{Im} \phi$ è sottogruppo di $G'$. 
+\end{enumerate}
+
+\end{prop}  \begin{dfn} Siano $G$ e $G'$ due gruppi e $\phi$ un omomorfismo tra loro. $\phi$ è detto \emph{isomorfismo} se $\exists \ \psi : G' \to G \ | \ \phi \circ \psi = \mathrm{id}_{G'}, \ \psi \circ \phi = \mathrm{id}_{G}$.
+
+ \end{dfn} \begin{prop} Un omomorfismo $\phi : G \to G'$ è un isomorfismo se è iniettivo e suriettivo.
+
+\end{prop}  \begin{dfn} Un isomorfismo $\phi : G \to G$ è detto \emph{automorfismo}.
+
+ \end{dfn} \begin{prop} Sia $\phi : G \to G'$ un omomorfismo. Allora $\phi$ è iniettiva $\Leftrightarrow$ $\ker \phi = e_G$.
+
+\end{prop} \begin{prop} Alcuni gruppi di matrici (l'operazione è sempre il prodotto tra matrici) usati in fisica sono:
+\begin{itemize}
+\item $GL_n (\mathbb{R})= \{ A \in M_n (\mathbb{R}) \ \mathrm{invertibili} \}$.
+\item $SL_n (\mathbb{R})= \{ A \in M_n (\mathbb{R}) \ | \ \det A =1 \}$ (sottogruppo di $GL_n (\mathbb{R})$).
+\item Gruppo \emph{ortogonale} $O(n) = \{ A \in GL_n (\mathbb{R}) \ | \ A^{-1}=A^t \}$.
+\item Gruppo \emph{ortogonale speciale} $SO(n) = \{ A \in O(n) \ | \ \det A =1 \}$ (sottogruppo di $O(n)$).
+\item Gruppo \emph{unitario} $U(n)= \{ A \in GL_n (\mathbb{C}) \ | \ A^{-1}=\overline{A}^t \}$.
+\item Gruppo \emph{unitario speciale} $SO(n) = \{ A \in U(n) \ | \ \det A =1 \}$ (sottogruppo di $U(n)$).
+\end{itemize}
+\end{prop}
+ 
+
+\end{document}
